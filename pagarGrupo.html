@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- Material design icons -->
+<link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+<!-- STYLE OF THE COMPONENTS -->
+<style>
+  .botao-esquerda{
+    margin-right:35%;
+  }
+
+  .botao-direita{
+    margin-left:35%;
+  }
+
+  .botao-mais{
+    margin-bottom: 2%;
+  }
+
+  .alignBtn{
+    position: relative;
+    height: auto;
+    top: 5px;
+    bottom: 2px;
+  }
+
+  #bottom{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+  body { padding-top: 70px;
+    font-family: 'Roboto';}
+  a { font-size:20px; }
+</style>
+
+<div>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-lg alignBtn" aria-label="Left Align">
+          <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+        </button>
+        <button onclick="location.href='MainMenu.html'" type="button" class="btn btn-default btn-lg alignBtn" aria-label="Left Align">
+          <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" role="tablist">
+          <div class="col-xs-3 ">
+            <button type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
+              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="col-xs-3">
+            <a href="#shoopingCart">
+            <button type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
+              <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span id="shopping-badge"class="badge">0</span>
+            </button></a>
+          </div>
+          <div class="col-xs-5 ">
+            <p id="price" class="text-right lead" style="font-size:180%">€ 0.0</p>
+          </div>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-11 col-xs-11 col-lg-11">Utilizador</div>
+    <div class="col-md-1 col-xs-1 col-lg-1">
+      <button type="button" class="btn btn-danger btn-sm">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="bottom">
+  <p class="text-center">
+    <a href="#" class="btn btn-success botao-mais">
+      +
+    </a>
+  </p>
+
+  <p class="text-center">
+    <a href="#" class="btn btn-info btn-lg botao-esquerda">
+      <span class="glyphicon glyphicon-check"></span> Comprar
+    </a>
+   <a href="#" class="btn btn-info btn-lg botao-direita">
+     <span class="glyphicon glyphicon-remove"></span> Cancelar
+   </a>
+  </p>
+</div>
+</html>

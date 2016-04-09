@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+
+  <!-- localStorage API
+  <script src="lockr.js" type="text/javascript"></script> -->
+  <script src="store.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <!-- Material design icons -->
+  <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script>
+
+  function doOnce() {
+      // do the stuff
+      store.set("once","yes");
+      store.set("TOSTA", { name: "Tosta", qnt: 0, price: 2});
+      store.set("SANDES", { name: "Sandes", qnt: 0, price: 1});
+      store.set("BRUNCH", { name: "Brunch", qnt: 0, price: 5});
+      store.set('BADGE', 0);
+  }
+
+    function addCart(item) {
+      store.set('BADGE', ++document.getElementById("shopping-badge").innerHTML);
+      store.set(item.toUpperCase(), { name: item, qnt: ++store.get(item.toUpperCase()).qnt, price: store.get(item.toUpperCase()).price});
+      var tableRef = document.getElementById('cartTable');
+      var add = 0;
+      for(var i = 0; i < tableRef.rows.length; i++) {
+        if(tableRef.rows[i].cells[0].innerHTML == item) {
+          tableRef.rows[i].cells[1].getElementsByTagName("a")[0].innerHTML++;
+          store.set(item.toUpperCase(), { name: item, qnt: ++store.get(item.toUpperCase()).qnt, price: store.get(item.toUpperCase()).price});
+          add = 0;
+          break;
+        } else {
+          add = 1;
+        }
+      }
+      if(add==1 || tableRef.rows.length == 0) addRow('cartTable', item, store.get(item.toUpperCase()).qnt, store.get(item.toUpperCase()).price);
+      updateBadge();
+
+    }
+
+
+    function updateBadge() {
+      document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
+      var finalPrice = 0.0;
+      store.forEach(function(key, val) {
+        if(val.qnt != undefined)
+          finalPrice += val.qnt*val.price;
+      })
+      finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
+      document.getElementById("final-price").innerHTML = "€ " + finalPrice;
+    }
+
+    function  updateCart() {
+      var finalPrice = 0.0;
+      store.forEach(function(key, val) {
+        if(val.qnt != undefined)
+          finalPrice += val.qnt*val.price;
+      })
+      finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
+      document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
+    }
+
+    function addRow(tableID, itemName, itemQnt, itemPrice) {
+      // Get a reference to the table
+      var tableRef = document.getElementById(tableID);
+      // Insert a row in the table at row index 0
+      var newRow   = tableRef.insertRow(0);
+      //store.set('COUNTER', store.get('COUNTER')++);
+      // Insert a cell in the row at index 0
+      var newCell  = newRow.insertCell(0);
+      // Append a text node to the cell
+      var newText  = document.createTextNode(itemName);
+      newCell.appendChild(newText);
+
+// ----------------------------------------------------------------
+      // Insert a cell in the row at index 0
+      var newCell  = newRow.insertCell(1);
+      var clone = document.getElementById("minus-button").cloneNode(true),
+      timestamp = Date.now();
+      clone.id+='_'+timestamp;
+      newCell.appendChild(clone);
+
+      // Append a text node to the cell
+      var clone = document.getElementById("qnt").cloneNode(true);
+      clone.text = itemQnt;
+      //var newText  = document.createTextNode(itemQnt);
+      newCell.appendChild(clone);
+
+      var clone = document.getElementById("plus-button").cloneNode(true),
+      timestamp = Date.now();
+      clone.id+='_'+timestamp;
+      newCell.appendChild(clone);
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+      // Insert a cell in the row at index 0
+      var newCell  = newRow.insertCell(2);
+      // Append a text node to the cell
+      itemPrice = parseFloat(Math.round(itemPrice * 100) / 100).toFixed(2);
+      var newText  = document.createTextNode("€ "+itemPrice);
+      newCell.appendChild(newText);
+// ----------------------------------------------------------------
+      // Insert a cell in the row at index 0
+      var newCell  = newRow.insertCell(3);
+      // Append a text node to the celL
+      var clone = document.getElementById("edit-button").cloneNode(true),
+      timestamp = Date.now();
+      clone.id+='_'+timestamp;
+      newCell.appendChild(clone);
+// -------------------------------------------------------
+
+// ----------------------------------------------------------------
+      // Insert a cell in the row at index 0
+      var newCell  = newRow.insertCell(4);
+      // Append a text node to the celL
+
+      var clone = document.getElementById("trash-button").cloneNode(true),
+      timestamp = Date.now();
+      clone.id+='_'+timestamp;
+
+      newCell.appendChild(clone);
+
+
+// -------------------------------------------------------
+
+}
+
+    function onStart() {
+      if(store.get("once") == undefined) doOnce();
+      updateBadge();
+    }
+
+  window.onload = onStart;
+
+  </script>
+  <!-- STYLE OF THE COMPONENTS -->
+  <style>
+    body { padding-top: 70px;
+      font-family: 'Roboto';
+    }
+    p { font-size:25px; }
+    .alignBtn{
+      position: relative;
+      height: auto;
+      top: 5px;
+      bottom: 2px;
+    }
+  </style>
+
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <button onclick="window.history.back()" type="button" class="btn btn-default btn-lg alignBtn" aria-label="Left Align">
+          <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+        </button>
+        <button onclick="location.href='MainMenu.html'" type="button" class="btn btn-default btn-lg alignBtn" aria-label="Left Align">
+          <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" role="tablist">
+          <div class="col-xs-3">
+            <a href = "#stateMenu">
+              <button type="button"  class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+
+              </button>
+            </a>
+          </div>
+          <div class="col-xs-3">
+            <a href="#shoopingCart">
+            <button onclick="updateCart()"type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
+              <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span id="shopping-badge"class="badge">0</span>
+            </button></a>
+          </div>
+          <div class="col-xs-5 ">
+            <p id="final-price" class="text-right lead" style="font-size:180%">€ 0.0</p>
+          </div>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <body>
+
+    <div clas="container-fluid">
+      <div class="row">
+        <div class="col-xs-5 col-md-4">
+          <div class="thumbnail">
+            <img src="FoodItem/tosta.jpg" alt="Tosta">
+            <div class="caption">
+              <h3>Tosta</h3>
+              <p style="font-size:100%">Pensadas por especialistas, as nossas Tostas em pão saloio, são ideais para refeições leves.</p>
+              <p style="font-size:100%">Tamanho disponíveis: Inteira ou Metade (poderá ainda optar por 2 metades).</p>
+              <p class="text-center"> Preço:  € 2.00 </p>
+              <p class="text-center">
+                <a id="Tosta" onclick="addCart(this.id)" class="btn btn-info btn-lg">
+                  <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
+                </a>
+
+               <a href="#tostaPers" class="btn btn-info btn-lg">
+                 <span class="glyphicon glyphicon-pencil"></span> Personalizar
+               </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-xs-5 col-md-4">
+          <div class="thumbnail">
+            <img src="FoodItem/sandes.jpg" alt="Sandes">
+            <div class="caption">
+              <h3>Sandes</h3>
+              <p style="font-size:100%">Cada Sandes foi pensada ao pormenor, apelando a todos os sentidos.</p>
+              <p style="font-size:100%">Variedades disponíveis: Salmão, Frango, Carne Assada, Atum, Vegetariana.</p>
+              <p class="text-center"> Preço:  € 1.00 </p>
+              <p class="text-center">
+                <a id="Sandes" onclick="addCart(this.id)" class="btn btn-info btn-lg">
+                  <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
+                </a>
+               <a href="#sandesPers" class="btn btn-info btn-lg">
+                 <span class="glyphicon glyphicon-pencil"></span> Personalizar
+               </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-5 col-md-4">
+          <div class="thumbnail">
+            <img src="FoodItem/brunch.jpg" alt="Brunch">
+            <div class="caption">
+              <h3>Brunch</h3>
+              <p style="font-size:100%">Com tanta coisa apetecível no nosso bar era um pecado não termos um brunch individual ou para partilhar.</p>
+              <p style="font-size:100%">Composição: 2 croissant | 1 pão cereais| Prato com fiambre/queijo | 1 omelete
+                Manteiga | 2 bebidas | 1 sobremesa | 2 cafés</p>
+              <p class="text-center"> Preço:  € 5.00 </p>
+              <p class="text-center">
+                <a id="Brunch" onclick="addCart(this.id)" class="btn btn-info btn-lg">
+                  <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
+                </a>
+               <a class="btn btn-info btn-lg" href="#brunchPers" >
+                 <span  class="glyphicon glyphicon-pencil "></span> Personalizar
+               </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </body>
+
+
+
+<!-- POPUP MENU -->
+<style>
+  .modal-window {
+    position:fixed;
+    background-color: rgba(255,255,255,0.5);
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    z-index:999;
+    opacity:0;
+    pointer-events:none;
+    -webkit-transition:all 0.3s;
+    -moz-transition:all 0.3s;
+    transition:all 0.3s;
+  }
+  .modal-window:target {
+    opacity:1;
+    pointer-events:auto;
+  }
+  .modal-window>div {
+    width:800px;
+    position:relative;
+    margin:10% auto;
+    padding:2rem;
+    background:#fff;
+    color:#444;
+  }
+  .modal-window header {
+    font-weight:bold;
+  }
+
+  .modal-window h1 {
+    font-size: 150%;
+    margin: 0 0 15px;
+  }
+</style>
+
+<div id="brunchPers" class="modal-window">
+    <div>
+
+     <h1 class="text-center">Personalizar Brunch</h1>
+     <div class="checkbox">
+        <label><input type="checkbox" value="">Fiambre</label>
+     </div>
+     <div class="checkbox">
+       <label><input type="checkbox" value="">Queijo</label>
+     </div>
+     <div class="checkbox ">
+       <label><input type="checkbox" value="">Manteiga</label>
+     </div>
+     <div class="checkbox ">
+       <label><input type="checkbox" value="">Sobremesa</label>
+     </div>
+     <div class="checkbox ">
+       <label><input type="checkbox" value="">Café</label>
+     </div>
+     <p class="text-center">
+       <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+         <span  class="glyphicon glyphicon-remove "></span> Cancelar
+       </a>
+       <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+         <span class="glyphicon glyphicon-ok"></span> Confirmar
+       </a>
+     </p>
+    </div>
+</div>
+
+<div id="sandesPers" class="modal-window">
+    <div>
+     <h1 class="text-center">Personalizar Sandes</h1>
+     <div class="checkbox">
+        <label><input type="checkbox" value="">Salmão</label>
+     </div>
+     <div class="checkbox">
+       <label><input type="checkbox" value="">Frango</label>
+     </div>
+     <div class="checkbox ">
+       <label><input type="checkbox" value="">Carne assada</label>
+     </div>
+     <div class="checkbox ">
+       <label><input type="checkbox" value="">Atum</label>
+     </div>
+     <div class="checkbox ">
+       <label><input type="checkbox" value="">Vegetariana</label>
+     </div>
+
+     <p class="text-center">
+       <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+         <span  class="glyphicon glyphicon-remove "></span> Cancelar
+       </a>
+       <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+         <span class="glyphicon glyphicon-ok"></span> Confirmar
+       </a>
+     </p>
+    </div>
+</div>
+
+<div id="tostaPers" class="modal-window">
+    <div>
+     <h1 class="text-center">Personalizar Tosta</h1>
+
+    <div class="checkbox">
+       <label><input type="checkbox" value="">Inteira</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" value="">Metade</label>
+    </div>
+    <div class="checkbox ">
+      <label><input type="checkbox" value="">2 Metades</label>
+    </div>
+
+     <p class="text-center">
+       <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+         <span  class="glyphicon glyphicon-remove "></span> Cancelar
+       </a>
+       <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+         <span class="glyphicon glyphicon-ok"></span> Confirmar
+       </a>
+     </p>
+    </div>
+</div>
+<!-- POPUP MENU END -->
+
+
+
+<!-- POPUP MENU -->
+
+
+<div id="shoopingCart" class="modal-window">
+    <div>
+      <p class="text-center"> Carrinho de Compras </p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+            <th>Editar</th>
+            <th>Remover</th>
+          </tr>
+        </thead>
+        <tbody id="cartTable">
+        </tbody>
+      </table>
+      <p id="total-price" class="text-right">Total: € 0.00</p>
+       <p class="text-center">
+         <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+           <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+         </a>
+         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+           <span class="glyphicon glyphicon-euro"></span> Pagar agora
+         </a>
+         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+           <span class="glyphicon glyphicon-euro"></span> Pagar depois
+         </a>
+         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="pagarGrupo.html">
+           <span class="glyphicon glyphicon-euro"></span> Pagar em grupo
+         </a>
+       </p>
+     </div>
+</div>
+
+<!-- Shoping cart table items -->
+<div style="display:none">
+  <button id="minus-button" type="button" class="btn btn-default btn-lg">
+    <span class="glyphicon glyphicon-minus"></span>
+  </button>
+  <a style="text-decoration: none; margin:10px" id="qnt">1</a>
+  <button id="plus-button" type="button" class="btn btn-default btn-lg">
+    <span class="glyphicon glyphicon-plus"></span>
+  </button>
+
+  <button id="edit-button" type="button" class="btn btn-default btn-lg disabled">
+    <span class="glyphicon glyphicon-pencil"></span>
+  </button>
+
+  <a id="delete_row">
+  <button onclick="deleteRow(this)"id="trash-button" type="button" class="btn btn-danger btn-lg">
+    <span class="glyphicon glyphicon-trash"></span>
+  </button></a>
+</div>
+<!-- Shoping cart table items END -->
+
+
+
+<div id="stateMenu" class="modal-window">
+    <div>
+      <p class="text-center"> Estado do Pedido </p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+          </tr>
+        </thead>
+        <tbody id="stateTable">
+        </tbody>
+      </table>
+      <p id="total-price" class="text-center">Tempo médio de espera: # min</p>
+       <p class="text-center">
+         <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+           <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+         </a>
+       </p>
+     </div>
+</div>
+
+</html>

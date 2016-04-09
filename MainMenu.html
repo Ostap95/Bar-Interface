@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+
+  <!-- localStorage API -->
+  <script src="store.min.js"></script>
+
+  <script>
+  function getBadge() {
+    document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
+  }
+
+
+
+  function  updateCart() {
+    var finalPrice = 0.0;
+    store.forEach(function(key, val) {
+      if(val.qnt != undefined)
+        finalPrice += val.qnt*val.price;
+    })
+    finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
+    document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
+    document.getElementById("price").innerHTML = "€ " + finalPrice;
+  }
+
+  function pageLoad() {
+    getBadge();
+    updateCart();
+  }
+  window.onload = pageLoad;
+
+
+  </script>
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <!-- Material design icons -->
+  <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+  <!-- STYLE OF THE COMPONENTS -->
+  <style>
+    body { padding-top: 70px;
+      font-family: 'Roboto';
+     }
+    p { font-size:25px; }
+    .alignBtn{
+      position: relative;
+      height: auto;
+      top: 5px;
+      bottom: 2px;
+    }
+    .jumbotron.vertical-center {
+      margin-bottom: 0; /* Remove the default bottom margin of .jumbotron */
+      background-color: white;
+    }
+
+  </style>
+
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-lg disabled alignBtn" aria-label="Left Align">
+          <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-lg active alignBtn" aria-label="Left Align">
+          <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" role="tablist">
+          <div class="col-xs-3 ">
+            <button type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
+              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="col-xs-3">
+            <a href="#shoopingCart">
+            <button type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
+              <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <span id="shopping-badge"class="badge">0</span>
+            </button></a>
+          </div>
+          <div class="col-xs-5 ">
+            <p id="price" class="text-right lead" style="font-size:180%">€ 0.0</p>
+          </div>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <body>
+    <div clas="container-fluid ">
+      <div class="row jumbotron vertical-center" >
+        <div class="col-xs-4">
+          <a href="FoodItemMenu.html" class="thumbnail">
+            <img src="Category/food.jpg" alt="Food">
+          </a>
+        </div>
+        <div class="col-xs-4 ">
+          <a href="#" class="thumbnail">
+            <img src="Category/drinks.jpg" alt="Drinks">
+          </a>
+        </div>
+        <div class="col-xs-4 ">
+          <a href="#" class="thumbnail">
+            <img src="Category/cafe.jpg" alt="Cafe">
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <!-- POPUPCART-->
+  <style>
+    .modal-window {
+      position:fixed;
+      background-color: rgba(255,255,255,0.5);
+      top:0;
+      right:0;
+      bottom:0;
+      left:0;
+      z-index:999;
+      opacity:0;
+      pointer-events:none;
+      -webkit-transition:all 0.3s;
+      -moz-transition:all 0.3s;
+      transition:all 0.3s;
+    }
+    .modal-window:target {
+      opacity:1;
+      pointer-events:auto;
+    }
+    .modal-window>div {
+      width:500px;
+      position:relative;
+      margin:10% auto;
+      padding:2rem;
+      background:#fff;
+      color:#444;
+    }
+    .modal-window header {
+      font-weight:bold;
+    }
+
+    .modal-window h1 {
+      font-size: 150%;
+      margin: 0 0 15px;
+    }
+  </style>
+
+<div id="shoopingCart" class="modal-window">
+    <div>
+      <p class="text-center"> Carrinho de Compras </p>
+      <table class="table" id="tab_logic">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+            <th>Editar</th>
+            <th>Remover</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <th scope="row">1</th>
+            <td>
+              <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-minus"></span>
+              </button> 1
+              <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+            </td>
+            <td>€ 1.0 </td>
+            <td>
+              <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+            </td>
+            <td>
+              <a id="delete_row">
+              <button  type="button" class="btn btn-danger btn-sm ">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button></a>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <p id="total-price" class="text-right">Total: € 0.00</p>
+       <p class="text-center">
+         <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+           <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+         </a>
+         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+           <span class="glyphicon glyphicon-euro"></span> Efectuar Pagamento
+         </a>
+       </p>
+     </div>
+</div>
+
+<!-- POPUPCART END -->
+</html>
