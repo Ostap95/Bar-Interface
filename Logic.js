@@ -121,3 +121,44 @@ function doOnceFood() {
     store.set("BRUNCH", { name: "Brunch", qnt: 0, price: 5});
     store.set('BADGE', 0);
 }
+
+/* Updates badge information in Item Information menus */
+function updateBadge() {
+  document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
+  var finalPrice = 0.0;
+  store.forEach(function(key, val) {
+    if(val.qnt != undefined)
+      finalPrice += val.qnt*val.price;
+  })
+  finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
+  document.getElementById("final-price").innerHTML = "€ " + finalPrice;
+}
+
+/* Updates Cart in Item Information menus */
+function  updateCart() {
+  var finalPrice = 0.0;
+  store.forEach(function(key, val) {
+    if(val.qnt != undefined)
+      finalPrice += val.qnt*val.price;
+  })
+  finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
+  document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
+  updateCartList();
+}
+
+
+function deleteRow(row) {
+  var d = row.parentNode.parentNode.rowIndex;
+  var item = row.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML; // Name of the item
+  store.remove(item.toUpperCase());
+  document.getElementById('cartTable').deleteRow(d-1);
+}
+
+function tableclick(e) {
+  if(!e)
+   e = window.event;
+
+  if(e.target.value == "Delete")
+     deleteRow(e.target);
+
+}

@@ -7,6 +7,9 @@
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
+  <!-- Css style -->
+  <link rel="stylesheet" href="Style.css">
+
   <!-- Local Storage API -->
   <script src="store.min.js"></script>
 
@@ -19,50 +22,22 @@
   <!-- Bar Logic -->
   <script src="Logic.js"></script>
 
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+
+
   <script>
-
-    function updateBadge() {
-      document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
-      var finalPrice = 0.0;
-      store.forEach(function(key, val) {
-        if(val.qnt != undefined)
-          finalPrice += val.qnt*val.price;
-      })
-      finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
-      document.getElementById("final-price").innerHTML = "€ " + finalPrice;
-    }
-
-    function  updateCart() {
-      var finalPrice = 0.0;
-      store.forEach(function(key, val) {
-        if(val.qnt != undefined)
-          finalPrice += val.qnt*val.price;
-      })
-      finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
-      document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
-      updateCartList();
-    }
-
-    function updateCartList() {
-      // Loop over all stored values
-      if(document.getElementById("cartTable").rows.length == 0) {
-        store.forEach(function(key, val) {
-          if(key != 'once' && key != 'BADGE'){
-            addRow('cartTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
-          }
-        });
-      }
-    }
 
     function onStart() {
       if(store.get("once") == undefined) doOnceFood();
       updateBadge();
       updateCartList();
     }
-
   window.onload = onStart;
-
+  document.getElementById('cartTable').addEventListener('click',tableclick,false);
   </script>
+
+
   <!-- STYLE OF THE COMPONENTS -->
   <style>
     body { padding-top: 70px;
@@ -123,7 +98,6 @@
   </nav>
 
   <body>
-
     <div clas="container-fluid">
       <div class="row">
         <div class="col-xs-5 col-md-4">
@@ -193,43 +167,6 @@
 
 
 <!-- POPUP MENU -->
-<style>
-  .modal-window {
-    position:fixed;
-    background-color: rgba(255,255,255,0.5);
-    top:0;
-    right:0;
-    bottom:0;
-    left:0;
-    z-index:999;
-    opacity:0;
-    pointer-events:none;
-    -webkit-transition:all 0.3s;
-    -moz-transition:all 0.3s;
-    transition:all 0.3s;
-  }
-  .modal-window:target {
-    opacity:1;
-    pointer-events:auto;
-  }
-  .modal-window>div {
-    width:800px;
-    position:relative;
-    margin:10% auto;
-    padding:2rem;
-    background:#fff;
-    color:#444;
-  }
-  .modal-window header {
-    font-weight:bold;
-  }
-
-  .modal-window h1 {
-    font-size: 150%;
-    margin: 0 0 15px;
-  }
-</style>
-
 <div id="brunchPers" class="modal-window">
     <div>
 
@@ -357,11 +294,11 @@
 
 <!-- Shoping cart table items -->
 <div style="display:none">
-  <button id="minus-button" type="button" class="btn btn-default btn-lg">
+  <button value="Minus" id="minus-button" type="button" class="btn btn-default btn-lg">
     <span class="glyphicon glyphicon-minus"></span>
   </button>
   <a style="text-decoration: none; margin:10px" id="qnt">1</a>
-  <button id="plus-button" type="button" class="btn btn-default btn-lg">
+  <button value="Plus" id="plus-button" type="button" class="btn btn-default btn-lg">
     <span class="glyphicon glyphicon-plus"></span>
   </button>
 
@@ -369,10 +306,9 @@
     <span class="glyphicon glyphicon-pencil"></span>
   </button>
 
-  <a id="delete_row">
-  <button onclick="deleteRow(this)"id="trash-button" type="button" class="btn btn-danger btn-lg">
+  <button value="Delete" onclick="deleteRow(this)"id="trash-button" type="button" class="btn btn-danger btn-lg">
     <span class="glyphicon glyphicon-trash"></span>
-  </button></a>
+  </button>
 </div>
 <!-- Shoping cart table items END -->
 
