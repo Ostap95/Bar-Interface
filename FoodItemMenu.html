@@ -70,6 +70,18 @@
       })
       finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
       document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
+      updateCartList();
+    }
+
+    function updateCartList() {
+      // Loop over all stored values
+      if(document.getElementById("cartTable").rows.length == 0) {
+        store.forEach(function(key, val) {
+          if(key != 'once' && key != 'BADGE'){
+            addRow('cartTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
+          }
+        });
+      }
     }
 
     function addRow(tableID, itemName, itemQnt, itemPrice) {
@@ -139,6 +151,7 @@
     function onStart() {
       if(store.get("once") == undefined) doOnce();
       updateBadge();
+      updateCartList();
     }
 
   window.onload = onStart;

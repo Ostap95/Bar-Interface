@@ -5,12 +5,14 @@
   <!-- localStorage API -->
   <script src="store.min.js"></script>
 
+  <!-- Bar Logic -->
+  <script src="Logic.js"></script>
+
+
   <script>
   function getBadge() {
     document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
   }
-
-
 
   function  updateCart() {
     var finalPrice = 0.0;
@@ -26,8 +28,10 @@
   function pageLoad() {
     getBadge();
     updateCart();
+    updateCartList();
   }
   window.onload = pageLoad;
+
 
 
   </script>
@@ -95,7 +99,7 @@
           </div>
           <div class="col-xs-3">
             <a href="#shoopingCart">
-            <button type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
+            <button onclick="updateCartList()"type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
               <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
               <span id="shopping-badge"class="badge">0</span>
             </button></a>
@@ -130,7 +134,7 @@
     </div>
   </body>
 
-  <!-- POPUPCART-->
+  <!-- POPUP MENU -->
   <style>
     .modal-window {
       position:fixed;
@@ -151,7 +155,7 @@
       pointer-events:auto;
     }
     .modal-window>div {
-      width:500px;
+      width:800px;
       position:relative;
       margin:10% auto;
       padding:2rem;
@@ -168,57 +172,85 @@
     }
   </style>
 
-<div id="shoopingCart" class="modal-window">
+
+  <div id="shoopingCart" class="modal-window">
+      <div>
+        <p class="text-center"> Carrinho de Compras </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantidade</th>
+              <th>Preço</th>
+              <th>Editar</th>
+              <th>Remover</th>
+            </tr>
+          </thead>
+          <tbody id="cartTable">
+          </tbody>
+        </table>
+        <p id="total-price" class="text-right">Total: € 0.00</p>
+         <p class="text-center">
+           <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+             <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+           </a>
+           <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+             <span class="glyphicon glyphicon-euro"></span> Pagar agora
+           </a>
+           <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+             <span class="glyphicon glyphicon-euro"></span> Pagar depois
+           </a>
+           <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="pagarGrupo.html">
+             <span class="glyphicon glyphicon-euro"></span> Pagar em grupo
+           </a>
+         </p>
+       </div>
+  </div>
+
+<!-- POPUPCART END -->
+
+<!-- Shoping cart table items -->
+<div style="display:none">
+  <button id="minus-button" type="button" class="btn btn-default btn-lg">
+    <span class="glyphicon glyphicon-minus"></span>
+  </button>
+  <a style="text-decoration: none; margin:10px" id="qnt">1</a>
+  <button id="plus-button" type="button" class="btn btn-default btn-lg">
+    <span class="glyphicon glyphicon-plus"></span>
+  </button>
+
+  <button id="edit-button" type="button" class="btn btn-default btn-lg disabled">
+    <span class="glyphicon glyphicon-pencil"></span>
+  </button>
+
+  <a id="delete_row">
+  <button onclick="deleteRow(this)"id="trash-button" type="button" class="btn btn-danger btn-lg">
+    <span class="glyphicon glyphicon-trash"></span>
+  </button></a>
+</div>
+<!-- Shoping cart table items END -->
+
+<div id="stateMenu" class="modal-window">
     <div>
-      <p class="text-center"> Carrinho de Compras </p>
-      <table class="table" id="tab_logic">
+      <p class="text-center"> Estado do Pedido </p>
+      <table class="table">
         <thead>
           <tr>
             <th>Item</th>
             <th>Quantidade</th>
             <th>Preço</th>
-            <th>Editar</th>
-            <th>Remover</th>
           </tr>
         </thead>
-        <tbody>
-          <tr >
-            <th scope="row">1</th>
-            <td>
-              <button type="button" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-minus"></span>
-              </button> 1
-              <button type="button" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-plus"></span>
-              </button>
-            </td>
-            <td>€ 1.0 </td>
-            <td>
-              <button type="button" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-pencil"></span>
-              </button>
-            </td>
-            <td>
-              <a id="delete_row">
-              <button  type="button" class="btn btn-danger btn-sm ">
-                <span class="glyphicon glyphicon-trash"></span>
-              </button></a>
-            </td>
-          </tr>
-
+        <tbody id="stateTable">
         </tbody>
       </table>
-      <p id="total-price" class="text-right">Total: € 0.00</p>
+      <p id="total-price" class="text-center">Tempo médio de espera: # min</p>
        <p class="text-center">
          <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-         </a>
-         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
-           <span class="glyphicon glyphicon-euro"></span> Efectuar Pagamento
          </a>
        </p>
      </div>
 </div>
 
-<!-- POPUPCART END -->
 </html>
