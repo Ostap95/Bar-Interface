@@ -2,47 +2,16 @@
 <html>
   <meta charset="utf-8">
 
-  <!-- localStorage API -->
-  <script src="store.min.js"></script>
-
-  <!-- Bar Logic -->
-  <script src="Logic.js"></script>
-
-
-  <script>
-  function getBadge() {
-    document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
-  }
-
-  function  updateCart() {
-    var finalPrice = 0.0;
-    store.forEach(function(key, val) {
-      if(val.qnt != undefined)
-        finalPrice += val.qnt*val.price;
-    })
-    finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
-    document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
-    document.getElementById("price").innerHTML = "€ " + finalPrice;
-  }
-
-  function pageLoad() {
-    getBadge();
-    updateCart();
-    updateCartList();
-  }
-  window.onload = pageLoad;
-
-
-
-  </script>
-
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-  <!-- Material design icons -->
-  <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+  <!-- localStorage API -->
+  <script src="store.min.js"></script>
+
+  <!-- Bar Logic -->
+  <script src="Logic.js"></script>
 
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -50,6 +19,14 @@
   <!-- Latest compiled JavaScript -->
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+  <script>
+  function pageLoad() {
+    getBadge();
+    updateMainMenuCart();
+    updateCartList();
+  }
+  window.onload = pageLoad;
+  </script>
 
   <!-- STYLE OF THE COMPONENTS -->
   <style>

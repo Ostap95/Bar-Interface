@@ -1,4 +1,4 @@
-<!-- Updates Shopping Cart Table -->
+/* Updates Shopping Cart Table */
 function updateCartList() {
   // Loop over all stored values
   if(document.getElementById("cartTable").rows.length == 0) {
@@ -10,7 +10,29 @@ function updateCartList() {
   }
 }
 
-<!-- Adds items to the table -->
+/* Ads items to the cart */
+function addCart(item) {
+  store.set('BADGE', ++document.getElementById("shopping-badge").innerHTML);
+  store.set(item.toUpperCase(), { name: item, qnt: ++store.get(item.toUpperCase()).qnt, price: store.get(item.toUpperCase()).price});
+  var tableRef = document.getElementById('cartTable'); // table reference
+  var add = false; //
+  for(var i = 0; i < tableRef.rows.length; i++) { // Loops through the table
+    if(tableRef.rows[i].cells[0].innerHTML == item) {
+      tableRef.rows[i].cells[1].getElementsByTagName("a")[0].innerHTML++;
+      store.set(item.toUpperCase(), {name: item, qnt: ++store.get(item.toUpperCase()).qnt, price: store.get(item.toUpperCase()).price});
+      add = false;
+      break;
+    } else {
+      add = false;
+    }
+  }
+  if(add == true || tableRef.rows.length == 0) addRow('cartTable', item, store.get(item.toUpperCase()).qnt, store.get(item.toUpperCase()).price);
+  updateBadge();
+
+}
+
+
+/* Adds items to the table */
 function addRow(tableID, itemName, itemQnt, itemPrice) {
   // Get a reference to the table
   var tableRef = document.getElementById(tableID);
@@ -70,7 +92,32 @@ function addRow(tableID, itemName, itemQnt, itemPrice) {
 
   newCell.appendChild(clone);
 
-
 // -------------------------------------------------------
+}
 
+/* Updates the badge in the Main Menu*/
+function getBadge() {
+  document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
+}
+
+/* Updates Main Menu shooping Cart */
+function  updateMainMenuCart() {
+  var finalPrice = 0.0;
+  store.forEach(function(key, val) {
+    if(val.qnt != undefined)
+      finalPrice += val.qnt*val.price;
+  })
+  finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
+  document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
+  document.getElementById("price").innerHTML = "€ " + finalPrice;
+}
+
+/* First thing to do when loading Food Category*/
+function doOnceFood() {
+    // do the stuff
+    store.set("once","yes");
+    store.set("TOSTA", { name: "Tosta", qnt: 0, price: 2});
+    store.set("SANDES", { name: "Sandes", qnt: 0, price: 1});
+    store.set("BRUNCH", { name: "Brunch", qnt: 0, price: 5});
+    store.set('BADGE', 0);
 }
