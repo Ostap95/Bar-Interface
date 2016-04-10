@@ -3,8 +3,10 @@ function updateCartList() {
   // Loop over all stored values
   if(document.getElementById("cartTable").rows.length == 0) {
     store.forEach(function(key, val) {
-      if(key != 'once' && key != 'BADGE'){
-        addRow('cartTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
+      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE'){
+        if(store.get(key).qnt != 0) {
+          addRow('cartTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
+        }
       }
     });
   }
@@ -13,6 +15,8 @@ function updateCartList() {
 /* Ads items to the cart */
 function addCart(item) {
   store.set('BADGE', ++document.getElementById("shopping-badge").innerHTML);
+  var newPrice = store.get('FINALPRICE') + store.get(item.toUpperCase()).price;
+  store.set('FINALPRICE', newPrice)
   store.set(item.toUpperCase(), { name: item, qnt: ++store.get(item.toUpperCase()).qnt, price: store.get(item.toUpperCase()).price});
   var tableRef = document.getElementById('cartTable'); // table reference
   var add = false; //
@@ -28,7 +32,6 @@ function addCart(item) {
   }
   if(add == true || tableRef.rows.length == 0) addRow('cartTable', item, store.get(item.toUpperCase()).qnt, store.get(item.toUpperCase()).price);
   updateBadge();
-
 }
 
 
@@ -102,12 +105,7 @@ function getBadge() {
 
 /* Updates Main Menu shooping Cart */
 function  updateMainMenuCart() {
-  var finalPrice = 0.0;
-  store.forEach(function(key, val) {
-    if(val.qnt != undefined)
-      finalPrice += val.qnt*val.price;
-  })
-  finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
+  finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
   document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
   document.getElementById("price").innerHTML = "€ " + finalPrice;
 }
@@ -120,28 +118,19 @@ function doOnceFood() {
     store.set("SANDES", { name: "Sandes", qnt: 0, price: 1});
     store.set("BRUNCH", { name: "Brunch", qnt: 0, price: 5});
     store.set('BADGE', 0);
+    store.set('FINALPRICE', 0);
 }
 
 /* Updates badge information in Item Information menus */
 function updateBadge() {
   document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
-  var finalPrice = 0.0;
-  store.forEach(function(key, val) {
-    if(val.qnt != undefined)
-      finalPrice += val.qnt*val.price;
-  })
-  finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
+  finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
   document.getElementById("final-price").innerHTML = "€ " + finalPrice;
 }
 
 /* Updates Cart in Item Information menus */
 function  updateCart() {
-  var finalPrice = 0.0;
-  store.forEach(function(key, val) {
-    if(val.qnt != undefined)
-      finalPrice += val.qnt*val.price;
-  })
-  finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2);
+  finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
   document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
   updateCartList();
 }
@@ -150,6 +139,9 @@ function  updateCart() {
 function deleteRow(row) {
   var d = row.parentNode.parentNode.rowIndex;
   var item = row.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML; // Name of the item
+  var badge = store.get('BADGE');
+  badge -= store.get(item.toUpperCase().qnt);
+  store.set('BADGE', badge);
   store.remove(item.toUpperCase());
   document.getElementById('cartTable').deleteRow(d-1);
 }
