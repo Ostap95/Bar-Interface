@@ -16,14 +16,15 @@ function updateCartList() {
 function addCart(item) {
   store.set('BADGE', ++document.getElementById("shopping-badge").innerHTML);
   var newPrice = store.get('FINALPRICE') + store.get(item.toUpperCase()).price;
-  store.set('FINALPRICE', newPrice)
-  store.set(item.toUpperCase(), { name: item, qnt: ++store.get(item.toUpperCase()).qnt, price: store.get(item.toUpperCase()).price});
+  store.set('FINALPRICE', newPrice);
+  var newqnt = store.get(item.toUpperCase()).qnt + 1;
+  store.set(item.toUpperCase(), { name: item, qnt: newqnt, price: store.get(item.toUpperCase()).price});
   var tableRef = document.getElementById('cartTable'); // table reference
   var add = false; //
   for(var i = 0; i < tableRef.rows.length; i++) { // Loops through the table
     if(tableRef.rows[i].cells[0].innerHTML == item) {
       tableRef.rows[i].cells[1].getElementsByTagName("a")[0].innerHTML++;
-      store.set(item.toUpperCase(), {name: item, qnt: ++store.get(item.toUpperCase()).qnt, price: store.get(item.toUpperCase()).price});
+      store.set(item.toUpperCase(), {name: item, qnt: store.get(item.toUpperCase()).qnt++, price: store.get(item.toUpperCase()).price});
       add = false;
       break;
     } else {
@@ -126,6 +127,7 @@ function updateBadge() {
   document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
   finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
   document.getElementById("final-price").innerHTML = "€ " + finalPrice;
+
 }
 
 /* Updates Cart in Item Information menus */
@@ -137,20 +139,59 @@ function  updateCart() {
 
 
 function deleteRow(row) {
-  var d = row.parentNode.parentNode.rowIndex;
+  var d = row.parentNode.parentNode.rowIndex; // Row index
   var item = row.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML; // Name of the item
-  var badge = store.get('BADGE');
-  badge -= store.get(item.toUpperCase().qnt);
-  store.set('BADGE', badge);
-  store.remove(item.toUpperCase());
-  document.getElementById('cartTable').deleteRow(d-1);
+  var badge = store.get('BADGE'); // Badge information
+  badge -= store.get(item.toUpperCase()).qnt;
+  store.set('BADGE', badge); // Updates the badge
+  var price = store.get('FINALPRICE') - (store.get(item.toUpperCase()).qnt * store.get(item.toUpperCase()).price);
+  store.set('FINALPRICE', price); // Updates the final price
+  var cpyPrice = store.get(item.toUpperCase()).price;
+  store.remove(item.toUpperCase()); // Removes the item form the local storage
+  store.set(item.toUpperCase(), { name: item, qnt: 0, price: cpyPrice});
+  document.getElementById('cartTable').deleteRow(d-1); // Deletes the item
+  updateCart();
+  updateBadge();
+  updateMainMenuCart();
 }
 
-function tableclick(e) {
-  if(!e)
-   e = window.event;
+function DecrementQuantity(row) {
+  var d = row.parentNode.parentNode.rowIndex; // Row index
+  var item = row.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML; // Name of the item
+  if (store.get(item.toUpperCase()).qnt > 1) {
+    var newQnt = store.get(item.toUpperCase()).qnt - 1;
+    cpyPrice = store.get(item.toUpperCase()).price;
+    store.set(item.toUpperCase(), { name: item, qnt: newQnt, price: cpyPrice});
 
-  if(e.target.value == "Delete")
+    var badge = store.get('BADGE'); // Badge information
+    store.set('BADGE', --badge); // Updates the badge
+
+    var price = store.get('FINALPRICE') - store.get(item.toUpperCase()).price;
+    store.set('FINALPRICE', price); // Updates the final price
+
+    row.parentNode.parentNode.getElementsByTagName("a")[0].innerHTML = newQnt; // Quantity of the item
+
+    updateCart();
+    updateBadge();
+  }
+}
+
+function IncrementQuantity(row) {
+  var d = row.parentNode.parentNode.rowIndex; // Row index
+  var item = row.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML; // Name of the item
+  addCart(item);
+  updateCart();
+}
+
+/* Function responsible for handeling table clicks*/
+function tableclick(e) {
+  if (!e)
+   e = window.event;
+  if (e.target.value == "Delete")
      deleteRow(e.target);
+  else if (e.target.value == "Minus")
+     DecrementQuantity(e.target);
+  else if (e.target.value == "Plus")
+     IncrementQuantity(e.target);
 
 }
