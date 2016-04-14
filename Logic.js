@@ -118,6 +118,11 @@ function doOnceFood() {
     store.set("TOSTA", { name: "Tosta", qnt: 0, price: 2});
     store.set("SANDES", { name: "Sandes", qnt: 0, price: 1});
     store.set("BRUNCH", { name: "Brunch", qnt: 0, price: 5});
+
+    store.set("LIMONADA", { name: "Limonada", qnt: 0, price: 1});
+    store.set("ICEDTEA", { name: "IcedTea", qnt: 0, price: 1});
+    store.set("BATIDO", { name: "Batido", qnt: 0, price: 2.5});
+
     store.set('BADGE', 0);
     store.set('FINALPRICE', 0);
 }
@@ -194,4 +199,12 @@ function tableclick(e) {
   else if (e.target.value == "Plus")
      IncrementQuantity(e.target);
 
+}
+
+function searchItem(item) {
+
+}
+
+function refresh() {
+  location.reload();
 }

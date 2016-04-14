@@ -24,12 +24,13 @@
 
   <script>
   function pageLoad() {
+    if(store.get("once") == undefined) doOnceFood();
     getBadge();
     updateMainMenuCart();
     updateCartList();
   }
   window.onload = pageLoad;
-  store.clear();
+  //store.clear();
   </script>
 
   <!-- STYLE OF THE COMPONENTS -->
@@ -70,6 +71,7 @@
         </button>
       </div>
 
+
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right" role="tablist">
@@ -85,7 +87,7 @@
               <span id="shopping-badge"class="badge">0</span>
             </button></a>
           </div>
-          <div class="col-xs-5 ">
+          <div class="col-xs-5 " style="top:9px; left:10px">
             <p id="price" class="text-right lead" style="font-size:180%">€ 0.0</p>
           </div>
         </ul>
@@ -102,12 +104,12 @@
           </a>
         </div>
         <div class="col-xs-4 ">
-          <a href="#" class="thumbnail">
+          <a href="DrinkItemMenu.html" class="thumbnail">
             <img src="Category/drinks.jpg" alt="Drinks">
           </a>
         </div>
         <div class="col-xs-4 ">
-          <a href="#" class="thumbnail">
+          <a href="CafeItemMenu.html" class="thumbnail">
             <img src="Category/cafe.jpg" alt="Cafe">
           </a>
         </div>
