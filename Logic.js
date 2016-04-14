@@ -108,7 +108,7 @@ function getBadge() {
 function  updateMainMenuCart() {
   finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
   document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
-  document.getElementById("price").innerHTML = "€ " + finalPrice;
+  document.getElementById("total-price-menu").innerHTML = "€ " + finalPrice;
 }
 
 /* First thing to do when loading Food Category*/
@@ -122,6 +122,10 @@ function doOnceFood() {
     store.set("LIMONADA", { name: "Limonada", qnt: 0, price: 1});
     store.set("ICEDTEA", { name: "IcedTea", qnt: 0, price: 1});
     store.set("BATIDO", { name: "Batido", qnt: 0, price: 2.5});
+
+    store.set("SWEETCAPPUCCINO", { name: "SweetCappuccino", qnt: 0, price: 1.5});
+    store.set("SPECIALMOKA", { name: "SpecialMoka", qnt: 0, price: 2.5});
+    store.set("CAPPUCHOC", { name: "Cappuchoc", qnt: 0, price: 2.0});
 
     store.set('BADGE', 0);
     store.set('FINALPRICE', 0);
@@ -139,6 +143,7 @@ function updateBadge() {
 function  updateCart() {
   finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
   document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
+  document.getElementById("total-price-menu").innerHTML = "€ " + finalPrice;
   updateCartList();
 }
 

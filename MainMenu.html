@@ -30,6 +30,7 @@
     updateCartList();
   }
   window.onload = pageLoad;
+  document.getElementById('cartTable').addEventListener('click',tableclick,false);
   //store.clear();
   </script>
 
@@ -88,7 +89,7 @@
             </button></a>
           </div>
           <div class="col-xs-5 " style="top:9px; left:10px">
-            <p id="price" class="text-right lead" style="font-size:180%">€ 0.0</p>
+            <p id="total-price-menu" class="text-right lead" style="font-size:180%">€ 0.0</p>
           </div>
         </ul>
       </div><!-- /.navbar-collapse -->
@@ -157,11 +158,11 @@
 
 <!-- Shoping cart table items -->
 <div style="display:none">
-  <button id="minus-button" type="button" class="btn btn-default btn-lg">
+  <button value="Minus" onClick="DecrementQuantity(this)" id="minus-button" type="button" class="btn btn-default btn-lg">
     <span class="glyphicon glyphicon-minus"></span>
   </button>
   <a style="text-decoration: none; margin:10px" id="qnt">1</a>
-  <button id="plus-button" type="button" class="btn btn-default btn-lg">
+  <button value="Plus" onClick="IncrementQuantity(this)" id="plus-button" type="button" class="btn btn-default btn-lg">
     <span class="glyphicon glyphicon-plus"></span>
   </button>
 
@@ -169,10 +170,9 @@
     <span class="glyphicon glyphicon-pencil"></span>
   </button>
 
-  <a id="delete_row">
-  <button onclick="deleteRow(this)"id="trash-button" type="button" class="btn btn-danger btn-lg">
+  <button value="Delete" onclick="deleteRow(this)" id="trash-button" type="button" class="btn btn-danger btn-lg">
     <span class="glyphicon glyphicon-trash"></span>
-  </button></a>
+  </button>
 </div>
 <!-- Shoping cart table items END -->
 
