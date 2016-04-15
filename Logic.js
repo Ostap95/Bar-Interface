@@ -160,9 +160,10 @@ function deleteRow(row) {
   store.remove(item.toUpperCase()); // Removes the item form the local storage
   store.set(item.toUpperCase(), { name: item, qnt: 0, price: cpyPrice});
   document.getElementById('cartTable').deleteRow(d-1); // Deletes the item
-  updateCart();
   updateBadge();
-  updateMainMenuCart();
+  updateCart();
+
+  //updateMainMenuCart();
 }
 
 function DecrementQuantity(row) {
@@ -181,8 +182,8 @@ function DecrementQuantity(row) {
 
     row.parentNode.parentNode.getElementsByTagName("a")[0].innerHTML = newQnt; // Quantity of the item
 
-    updateCart();
     updateBadge();
+    updateCart();
   }
 }
 
