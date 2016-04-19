@@ -4,8 +4,13 @@
 
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
 
   <!-- Css style -->
   <link rel="stylesheet" href="Style.css">
@@ -13,16 +18,9 @@
   <!-- Local Storage API -->
   <script src="store.min.js"></script>
 
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-  <!-- Latest compiled JavaScript -->
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   <!-- Bar Logic -->
   <script src="Logic.js"></script>
-
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 
   <script>
     function onStart() {
@@ -30,6 +28,8 @@
       updateCartList();
       updateCart();
     }
+
+
   window.onload = onStart;
   document.getElementById('cartTable').addEventListener('click',tableclick,false);
   </script>
@@ -117,7 +117,7 @@
               <p style="font-size:100%">Pensadas por especialistas, as nossas Tostas em pão saloio, são ideais para refeições leves.</p>
               <p class="text-center"> Preço:  € 2.00 </p>
               <p class="text-center">
-                <a id="Tosta" onclick="addCart(this.id)" class="btn btn-info btn-lg">
+                <a id="Tosta" onclick="addCart(this.id)" class="btn btn-success btn-lg">
                   <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
                 </a>
               </p>
@@ -133,7 +133,7 @@
               <p style="font-size:100%">Cada Sandes foi pensada ao pormenor, apelando a todos os sentidos.</p>
               <p class="text-center"> Preço:  € 1.00 </p>
               <p class="text-center">
-                <a id="Sandes" onclick="addCart(this.id)" class="btn btn-info btn-lg">
+                <a id="Sandes" onclick="addCart(this.id)" class="btn btn-success btn-lg">
                   <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
                 </a>
               </p>
@@ -151,7 +151,7 @@
                 Manteiga | 2 bebidas | 1 sobremesa | 2 cafés</p>
               <p class="text-center"> Preço:  € 5.00 </p>
               <p class="text-center">
-                <a id="Brunch" onclick="addCart(this.id)" class="btn btn-info btn-lg">
+                <a id="Brunch" onclick="addCart(this.id)" class="btn btn-success btn-lg">
                   <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
                 </a>
               </p>
@@ -184,16 +184,16 @@
       </table>
       <p id="total-price" class="text-right">Total: € 0.00</p>
        <p class="text-center">
-         <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+         <a class="btn btn-danger btn-lg modal-close" href="#modal-close" >
            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
          </a>
-         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+         <a id="Brunch" href="#payNow" class="btn btn-warning btn-lg" href="#modal-close">
            <span class="glyphicon glyphicon-euro"></span> Pagar agora
          </a>
-         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+         <a id="Brunch" onclick="addCart(this)" class="btn btn-warning btn-lg" href="#modal-close">
            <span class="glyphicon glyphicon-euro"></span> Pagar depois
          </a>
-         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="pagarGrupo.html">
+         <a id="Brunch" onclick="addCart(this)" class="btn btn-warning btn-lg" href="pagarGrupo.html">
            <span class="glyphicon glyphicon-euro"></span> Pagar em grupo
          </a>
        </p>
@@ -234,11 +234,45 @@
       </table>
       <p id="total-price" class="text-center">Tempo médio de espera: # min</p>
        <p class="text-center">
-         <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+         <a class="btn btn-danger btn-lg modal-close" href="#modal-close" >
            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
          </a>
        </p>
      </div>
+</div>
+
+<div id="payNow" class="modal-window">
+    <div>
+      <p class="text-center"> Por favor, escolha um método para efectuar o pagamento do seu pedido.</p>
+     <p class="text-center">
+       <a href="#cashPay" class="btn btn-success btn-lg" href="#modal-close">
+         <span class="glyphicon glyphicon-euro"></span> Em Dinheiro
+       </a>
+       <a href= "#cashPay" class="btn btn-success btn-lg" href="#modal-close">
+         <span class="glyphicon glyphicon-credit-card"></span> Cartão de Crédito
+       </a>
+     </p>
+     <p class="text-center">
+       <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
+         <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+       </a>
+     </p>
+   </div>
+
+</div>
+
+<div id="cashPay" class="modal-window">
+    <div>
+      <p class="text-center"> Por favor, introduza a quantia indicada</p>
+     <p class="text-center"><font color="blue">Total: € 0.00</font></p>
+     <p class="text-center"><font color="green">Introduzido: € 0.00</font></p>
+     <p class="text-center">
+       <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
+         <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
+       </a>
+     </p>
+   </div>
+
 </div>
 
 </html>
