@@ -76,18 +76,11 @@ function addRow(tableID, itemName, itemQnt, itemPrice) {
   var newText  = document.createTextNode("€ "+itemPrice);
   newCell.appendChild(newText);
 // ----------------------------------------------------------------
-  // Insert a cell in the row at index 0
-  var newCell  = newRow.insertCell(3);
-  // Append a text node to the celL
-  var clone = document.getElementById("edit-button").cloneNode(true),
-  timestamp = Date.now();
-  clone.id+='_'+timestamp;
-  newCell.appendChild(clone);
 // -------------------------------------------------------
 
 // ----------------------------------------------------------------
   // Insert a cell in the row at index 0
-  var newCell  = newRow.insertCell(4);
+  var newCell  = newRow.insertCell(3);
   // Append a text node to the celL
 
   var clone = document.getElementById("trash-button").cloneNode(true),

@@ -102,6 +102,10 @@
     </div><!-- /.container-fluid -->
   </nav>
 
+  <div>
+    <p class="text-center"> Comida </p>
+  </div>
+
   <body>
     <div clas="container-fluid">
       <div class="row">
@@ -111,15 +115,11 @@
             <div class="caption">
               <h3>Tosta</h3>
               <p style="font-size:100%">Pensadas por especialistas, as nossas Tostas em pão saloio, são ideais para refeições leves.</p>
-              <p style="font-size:100%">Tamanho disponíveis: Inteira ou Metade (poderá ainda optar por 2 metades).</p>
               <p class="text-center"> Preço:  € 2.00 </p>
               <p class="text-center">
                 <a id="Tosta" onclick="addCart(this.id)" class="btn btn-info btn-lg">
                   <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
                 </a>
-               <a href="#tostaPers" class="btn btn-info btn-lg">
-                 <span class="glyphicon glyphicon-pencil"></span> Personalizar
-               </a>
               </p>
             </div>
           </div>
@@ -131,15 +131,11 @@
             <div class="caption">
               <h3>Sandes</h3>
               <p style="font-size:100%">Cada Sandes foi pensada ao pormenor, apelando a todos os sentidos.</p>
-              <p style="font-size:100%">Variedades disponíveis: Salmão, Frango, Carne Assada, Atum, Vegetariana.</p>
               <p class="text-center"> Preço:  € 1.00 </p>
               <p class="text-center">
                 <a id="Sandes" onclick="addCart(this.id)" class="btn btn-info btn-lg">
                   <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
                 </a>
-               <a href="#sandesPers" class="btn btn-info btn-lg">
-                 <span class="glyphicon glyphicon-pencil"></span> Personalizar
-               </a>
               </p>
             </div>
           </div>
@@ -158,106 +154,14 @@
                 <a id="Brunch" onclick="addCart(this.id)" class="btn btn-info btn-lg">
                   <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
                 </a>
-               <a class="btn btn-info btn-lg" href="#brunchPers" >
-                 <span  class="glyphicon glyphicon-pencil "></span> Personalizar
-               </a>
               </p>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </body>
-
-
-
-<!-- POPUP MENU -->
-<div id="brunchPers" class="modal-window">
-    <div>
-
-     <h1 class="text-center">Personalizar Brunch</h1>
-     <div class="checkbox">
-        <label><input type="checkbox" value="">Fiambre</label>
-     </div>
-     <div class="checkbox">
-       <label><input type="checkbox" value="">Queijo</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Manteiga</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Sobremesa</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Café</label>
-     </div>
-     <p class="text-center">
-       <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
-         <span  class="glyphicon glyphicon-remove "></span> Cancelar
-       </a>
-       <a id="Brunch" onclick="addCart(this);" class="btn btn-info btn-lg" href="#modal-close">
-         <span class="glyphicon glyphicon-ok"></span> Confirmar
-       </a>
-     </p>
-    </div>
-</div>
-
-<div id="sandesPers" class="modal-window">
-    <div>
-     <h1 class="text-center">Personalizar Sandes</h1>
-     <div class="checkbox">
-        <label><input type="checkbox" value="">Salmão</label>
-     </div>
-     <div class="checkbox">
-       <label><input type="checkbox" value="">Frango</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Carne assada</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Atum</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Vegetariana</label>
-     </div>
-
-     <p class="text-center">
-       <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
-         <span  class="glyphicon glyphicon-remove "></span> Cancelar
-       </a>
-       <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
-         <span class="glyphicon glyphicon-ok"></span> Confirmar
-       </a>
-     </p>
-    </div>
-</div>
-
-<div id="tostaPers" class="modal-window">
-    <div>
-     <h1 class="text-center">Personalizar Tosta</h1>
-
-    <div class="checkbox">
-       <label><input type="checkbox" value="">Inteira</label>
-    </div>
-    <div class="checkbox">
-      <label><input type="checkbox" value="">Metade</label>
-    </div>
-    <div class="checkbox ">
-      <label><input type="checkbox" value="">2 Metades</label>
-    </div>
-
-     <p class="text-center">
-       <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
-         <span  class="glyphicon glyphicon-remove "></span> Cancelar
-       </a>
-       <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
-         <span class="glyphicon glyphicon-ok"></span> Confirmar
-       </a>
-     </p>
-    </div>
-</div>
-<!-- POPUP MENU END -->
-
 
 
 <!-- POPUP MENU -->
@@ -272,7 +176,6 @@
             <th>Item</th>
             <th>Quantidade</th>
             <th>Preço</th>
-            <th>Editar</th>
             <th>Remover</th>
           </tr>
         </thead>
@@ -305,10 +208,6 @@
   <a style="text-decoration: none; margin:10px" id="qnt">1</a>
   <button value="Plus" onClick="IncrementQuantity(this)" id="plus-button" type="button" class="btn btn-default btn-lg">
     <span class="glyphicon glyphicon-plus"></span>
-  </button>
-
-  <button id="edit-button" type="button" class="btn btn-default btn-lg disabled">
-    <span class="glyphicon glyphicon-pencil"></span>
   </button>
 
   <button value="Delete" onclick="deleteRow(this)" id="trash-button" type="button" class="btn btn-danger btn-lg">

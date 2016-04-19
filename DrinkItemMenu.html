@@ -103,6 +103,10 @@
     </div><!-- /.container-fluid -->
   </nav>
 
+  <div>
+    <p class="text-center"> Bebida </p>
+  </div>
+
   <body>
     <div clas="container-fluid">
       <div class="row">
@@ -112,15 +116,11 @@
             <div class="caption">
               <h3>Limonada</h3>
               <p style="font-size:100%">Palavras para quê? 100% sabor, 100% refrescante. </p>
-              <p style="font-size:100%">Tamanhos disponíveis: M e L</p>
               <p class="text-center"> Preço:  € 1.00 </p>
               <p class="text-center">
                 <a id="Limonada" onclick="addCart(this.id)" class="btn btn-info btn-lg">
                   <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
                 </a>
-               <a href="#tostaPers" class="btn btn-info btn-lg">
-                 <span class="glyphicon glyphicon-pencil"></span> Personalizar
-               </a>
               </p>
             </div>
           </div>
@@ -132,15 +132,11 @@
             <div class="caption">
               <h3>Iced Tea</h3>
               <p style="font-size:100%">Feitos diariamente pelos nossos barristas os nossos iced teas são pura frescura!</p>
-              <p style="font-size:100%">Experimente a edição especial e limitada – TORANJA!</p>
               <p class="text-center"> Preço:  € 1.00 </p>
               <p class="text-center">
                 <a id="IcedTea" onclick="addCart(this.id)" class="btn btn-info btn-lg">
                   <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
                 </a>
-               <a href="#sandesPers" class="btn btn-info btn-lg">
-                 <span class="glyphicon glyphicon-pencil"></span> Personalizar
-               </a>
               </p>
             </div>
           </div>
@@ -152,113 +148,19 @@
             <div class="caption">
               <h3>Batido</h3>
               <p style="font-size:100%">Quisemos ao tradicional batido americano xxl, feito com gelado de baunilha dar o nosso toque, e o resultado é este…</p>
-              <p style="font-size:100%">Sabores disponíveis: Quente/Frio – Baunilha. Chocolate Negro, Chocolate e Avelã, Caramelo, Morango</p>
               <p class="text-center"> Preço:  € 2.50 </p>
               <p class="text-center">
                 <a id="Batido" onclick="addCart(this.id)" class="btn btn-info btn-lg">
                   <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
                 </a>
-               <a class="btn btn-info btn-lg" href="#brunchPers" >
-                 <span  class="glyphicon glyphicon-pencil "></span> Personalizar
-               </a>
               </p>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </body>
-
-
-
-<!-- POPUP MENU -->
-<div id="brunchPers" class="modal-window">
-    <div>
-
-     <h1 class="text-center">Personalizar Brunch</h1>
-     <div class="checkbox">
-        <label><input type="checkbox" value="">Fiambre</label>
-     </div>
-     <div class="checkbox">
-       <label><input type="checkbox" value="">Queijo</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Manteiga</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Sobremesa</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Café</label>
-     </div>
-     <p class="text-center">
-       <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
-         <span  class="glyphicon glyphicon-remove "></span> Cancelar
-       </a>
-       <a id="Brunch" onclick="addCart(this);" class="btn btn-info btn-lg" href="#modal-close">
-         <span class="glyphicon glyphicon-ok"></span> Confirmar
-       </a>
-     </p>
-    </div>
-</div>
-
-<div id="sandesPers" class="modal-window">
-    <div>
-     <h1 class="text-center">Personalizar Sandes</h1>
-     <div class="checkbox">
-        <label><input type="checkbox" value="">Salmão</label>
-     </div>
-     <div class="checkbox">
-       <label><input type="checkbox" value="">Frango</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Carne assada</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Atum</label>
-     </div>
-     <div class="checkbox ">
-       <label><input type="checkbox" value="">Vegetariana</label>
-     </div>
-
-     <p class="text-center">
-       <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
-         <span  class="glyphicon glyphicon-remove "></span> Cancelar
-       </a>
-       <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
-         <span class="glyphicon glyphicon-ok"></span> Confirmar
-       </a>
-     </p>
-    </div>
-</div>
-
-<div id="tostaPers" class="modal-window">
-    <div>
-     <h1 class="text-center">Personalizar Tosta</h1>
-
-    <div class="checkbox">
-       <label><input type="checkbox" value="">Inteira</label>
-    </div>
-    <div class="checkbox">
-      <label><input type="checkbox" value="">Metade</label>
-    </div>
-    <div class="checkbox ">
-      <label><input type="checkbox" value="">2 Metades</label>
-    </div>
-
-     <p class="text-center">
-       <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
-         <span  class="glyphicon glyphicon-remove "></span> Cancelar
-       </a>
-       <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
-         <span class="glyphicon glyphicon-ok"></span> Confirmar
-       </a>
-     </p>
-    </div>
-</div>
-<!-- POPUP MENU END -->
-
-
 
 <!-- POPUP MENU -->
 
@@ -272,7 +174,6 @@
             <th>Item</th>
             <th>Quantidade</th>
             <th>Preço</th>
-            <th>Editar</th>
             <th>Remover</th>
           </tr>
         </thead>
@@ -305,10 +206,6 @@
   <a style="text-decoration: none; margin:10px" id="qnt">1</a>
   <button value="Plus" onClick="IncrementQuantity(this)" id="plus-button" type="button" class="btn btn-default btn-lg">
     <span class="glyphicon glyphicon-plus"></span>
-  </button>
-
-  <button id="edit-button" type="button" class="btn btn-default btn-lg disabled">
-    <span class="glyphicon glyphicon-pencil"></span>
   </button>
 
   <button value="Delete" onclick="deleteRow(this)" id="trash-button" type="button" class="btn btn-danger btn-lg">
