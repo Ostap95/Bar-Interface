@@ -22,6 +22,18 @@
   <script src="Logic.js"></script>
 
   <script>
+  $(document).ready (function(){
+            $("#success-alert").hide();
+            $("#Brunch, #Tosta, #Sandes").click(function showAlert() {
+                $("#success-alert").alert();
+                $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                $("#success-alert").hide();
+                });
+            });
+
+ });
+
+
     function onStart() {
       updateBadge();
       updateCartList();
@@ -414,5 +426,13 @@
     </div>
   </div>
 </div>
+
+
+<div class="alert alert-success" id="success-alert">
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <p class="text-center"><strong>Adicionado ao carrinho com sucesso </strong></p>
+</div>
+
+
 
 </html>
