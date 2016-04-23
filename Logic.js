@@ -207,3 +207,7 @@ function searchItem(item) {
 function refresh() {
   location.reload();
 }
+
+function ActionConfirmed(id) {
+    $("#confirmModal").modal("hide");
+}

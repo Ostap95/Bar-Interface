@@ -2,10 +2,16 @@
 <html>
   <meta charset="utf-8">
 
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+
+
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
   <!-- Css style -->
   <link rel="stylesheet" href="Style.css">
@@ -13,20 +19,23 @@
   <!-- Local Storage API -->
   <script src="store.min.js"></script>
 
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-  <!-- Latest compiled JavaScript -->
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
   <!-- Bar Logic -->
   <script src="Logic.js"></script>
-
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-
+  
   <script>
 
     function onStart() {
+
+      $(document).ready (function(){
+                $("#success-alert").hide();
+                $("#SpecialMoka, #Cappuchoc, #SweetCappuccino").click(function showAlert() {
+                    $("#success-alert").alert();
+                    $("#success-alert").fadeTo(1200, 500).slideUp(500, function(){
+                    $("#success-alert").hide();
+                    });
+                });
+
+     });
 
       updateBadge();
       updateCartList();
@@ -119,8 +128,8 @@
               <p style="font-size:100%">Ao cremoso e tradicional cappuccino, juntamos a mais deliciosa base.</p>
               <p class="text-center"> Preço:  € 1.50 </p>
               <p class="text-center">
-                <a id="SweetCappuccino" onclick="addCart(this.id)" class="btn btn-info btn-lg">
-                  <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
+                <a id="SweetCappuccino" onclick="addCart(this.id)" class="btn btn-success btn-lg">
+                  <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar ao Carrinho
                 </a>
               </p>
             </div>
@@ -135,8 +144,8 @@
               <p style="font-size:100%">Todos os anos o nosso o Outono ganha um sabor diferente, este ano o mais especial é um Moka com o delicioso sabor de Castanha!</p>
               <p class="text-center"> Preço:  € 2.50 </p>
               <p class="text-center">
-                <a id="SpecialMoka" onclick="addCart(this.id)" class="btn btn-info btn-lg">
-                  <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
+                <a id="SpecialMoka" onclick="addCart(this.id)" class="btn btn-success btn-lg">
+                  <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar ao Carrinho
                 </a>
               </p>
             </div>
@@ -151,8 +160,8 @@
               <p style="font-size:100%">Ao nosso cappuccino juntámos um envolvente creme de chocolate e o resultado é o CAPPUCHOC.</p>
               <p class="text-center"> Preço:  € 2.00 </p>
               <p class="text-center">
-                <a id="Cappuchoc" onclick="addCart(this.id)" class="btn btn-info btn-lg">
-                  <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
+                <a id="Cappuchoc" onclick="addCart(this.id)" class="btn btn-success btn-lg">
+                  <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar ao Carrinho
                 </a>
               </p>
             </div>
@@ -183,16 +192,16 @@
       </table>
       <p id="total-price" class="text-right">Total: € 0.00</p>
        <p class="text-center">
-         <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
+         <a class="btn btn-danger btn-lg modal-close" href="#modal-close" >
            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
          </a>
-         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+         <a  href="#payNow" class="btn btn-warning btn-lg">
            <span class="glyphicon glyphicon-euro"></span> Pagar agora
          </a>
-         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="#modal-close">
+         <a class="btn btn-warning btn-lg" href="#payLater">
            <span class="glyphicon glyphicon-euro"></span> Pagar depois
          </a>
-         <a id="Brunch" onclick="addCart(this)" class="btn btn-info btn-lg" href="pagarGrupo.html">
+         <a class="btn btn-warning btn-lg" href="#payInGroup">
            <span class="glyphicon glyphicon-euro"></span> Pagar em grupo
          </a>
        </p>
@@ -238,6 +247,187 @@
          </a>
        </p>
      </div>
+</div>
+
+<div id="payNow" class="modal-window">
+    <div>
+      <p class="text-center"> Por favor, escolha um método de pagamento.</p>
+     <p class="text-center">
+       <a href="#cashPay" class="btn btn-success btn-lg" href="#modal-close">
+         <span class="glyphicon glyphicon-euro"></span> Em Dinheiro
+       </a>
+       <a href= "#creditCardPay" class="btn btn-success btn-lg" href="#modal-close">
+         <span class="glyphicon glyphicon-credit-card"></span> Cartão de Crédito
+       </a>
+     </p>
+     <p class="text-center">
+       <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
+         <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+       </a>
+     </p>
+   </div>
+</div>
+
+<div id="cashPay" class="modal-window">
+    <div>
+      <p class="text-center"> Por favor, introduza a quantia indicada</p>
+     <p class="text-center"><font color="blue">Total: € 0.00</font></p>
+     <p class="text-center"><font color="green">Introduzido: € 0.00</font></p>
+     <p class="text-center">
+       <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
+         <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
+       </a>
+     </p>
+   </div>
+
+</div>
+
+<div id="creditCardPay" class="modal-window">
+    <div>
+      <p class="text-center"> Por favor, introduza o seu cartão de crédito no lugar indicado na mesa.</p>
+     <p class="text-center"><font color="blue">Total: € 0.00</font></p>
+     <p class="text-center">
+       <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
+         <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
+       </a>
+     </p>
+   </div>
+</div>
+
+
+<div id="payLater" class="modal-window">
+    <div>
+      <p class="text-center">Com este tipo de pagamento, ser-lhe-á impresso um cartão electrónico, que poderá ser usado durante toda a sua estadia no bar,
+        para efectuar e adicionar pedidos à sua conta, e para efectuar o pagamento no fim. Por favor, para confirmar este tipo de pagamento, selecione o botão "Confirmar" e aguarde a chegada do seu pedido.</p>
+     <p class="text-center">
+       <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
+         <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+       </a>
+       <a class="btn btn-success btn-lg modal-close" href="#shoopingCart" data-toggle="modal" data-target="#myModal">
+         <span  class="glyphicon glyphicon-ok"></span> Confirmar
+       </a>
+     </p>
+   </div>
+
+</div>
+
+<div id="paymentLaterSuccess" class="modal-window">
+    <div>
+      <p class="text-center"> O seu pedido está a ser processado. Para mais informações sobre o seu pedido, por favor consulte o menu do estado do pedido, na barra de navegação.</p>
+     <p class="text-center">
+       <a class="btn btn-success btn-lg modal-close" href="#shoopingCart">
+         <span  class="glyphicon glyphicon-ok"></span> Continuar
+       </a>
+     </p>
+   </div>
+
+</div>
+
+<div id="paymentInGroupSuccess" class="modal-window">
+    <div>
+      <p class="text-center"> Obrigado!</p>
+     <p class="text-center">
+       <a class="btn btn-success btn-lg modal-close" href="#shoopingCart">
+         <span  class="glyphicon glyphicon-ok"></span> Continuar
+       </a>
+     </p>
+   </div>
+</div>
+
+
+
+<div id="payInGroup" class="modal-window">
+    <div>
+     <p class="text-center">Este tipo de pagamento permite-lhe dividir os itens da sua conta, para efectuar pagamentos individuais. Ou dividir o total por um certo número de pessoas. Por favor, escolha os itens que deseja pagar e em seguida selecione o botão "Confirmar".</p>
+     <table class="table">
+       <thead>
+         <tr>
+           <th>Item</th>
+           <th>Quantidade</th>
+           <th>Preço</th>
+         </tr>
+       </thead>
+       <tbody id="stateTable">
+       </tbody>
+     </table>
+
+     <div class="form-group">
+      <label for="sel1">Dividir a conta por:</label>
+      <select class="form-control" id="sel1">
+        <option>Não dividir</option>
+        <option>2 Pessoas</option>
+        <option>3 Pessoas</option>
+        <option>4 Pessoas</option>
+        <option>5 Pessoas</option>
+        <option>6 Pessoas</option>
+        <option>7 Pessoas</option>
+        <option>8 Pessoas</option>
+        <option>9 Pessoas</option>
+        <option>10 Pessoas</option>
+      </select>
+    </div>
+
+     <p class="text-center">
+       <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
+         <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+       </a>
+       <a class="btn btn-success btn-lg modal-close" href="#payNow" data-toggle="modal" data-target="#myModalGroup" >
+         <span  class="glyphicon glyphicon-ok"></span> Confirmar
+       </a>
+     </p>
+   </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="myModalLabel">Confirmar Acção</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">Tem a certeza que pretende continuar? </p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-danger btn-lg modal-close" data-dismiss="modal">
+          <span  class="glyphicon glyphicon-remove" data-dismiss="modal"></span> Cancelar
+        </a>
+        <a class="btn btn-success btn-lg modal-close" href="#paymentLaterSuccess">
+          <span  class="glyphicon glyphicon-ok" ></span> Continuar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="myModalLabel">Confirmar Acção</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">Tem a certeza que pretende continuar? </p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-danger btn-lg modal-close" data-dismiss="modal">
+          <span  class="glyphicon glyphicon-remove" data-dismiss="modal"></span> Cancelar
+        </a>
+        <a class="btn btn-success btn-lg modal-close" href="#payNow">
+          <span  class="glyphicon glyphicon-ok" ></span> Continuar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-success" id="success-alert">
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <p class="text-center"><strong>Adicionado ao carrinho com sucesso </strong></p>
 </div>
 
 </html>

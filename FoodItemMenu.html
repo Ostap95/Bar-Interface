@@ -26,11 +26,10 @@
             $("#success-alert").hide();
             $("#Brunch, #Tosta, #Sandes").click(function showAlert() {
                 $("#success-alert").alert();
-                $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                $("#success-alert").fadeTo(1200, 500).slideUp(500, function(){
                 $("#success-alert").hide();
                 });
             });
-
  });
 
 
@@ -197,14 +196,11 @@
          <a class="btn btn-danger btn-lg modal-close" href="#modal-close" >
            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
          </a>
-         <a  href="#payNow" class="btn btn-warning btn-lg">
-           <span class="glyphicon glyphicon-euro"></span> Pagar agora
-         </a>
-         <a class="btn btn-warning btn-lg" href="#payLater">
-           <span class="glyphicon glyphicon-euro"></span> Pagar depois
+         <a class="btn btn-warning btn-lg" href="#payNow">
+           <span class="glyphicon glyphicon-euro"></span> Pagar
          </a>
          <a class="btn btn-warning btn-lg" href="#payInGroup">
-           <span class="glyphicon glyphicon-euro"></span> Pagar em grupo
+           <span class="glyphicon glyphicon-euro"></span> Pagar Individualmente
          </a>
        </p>
      </div>
@@ -297,50 +293,9 @@
 </div>
 
 
-<div id="payLater" class="modal-window">
-    <div>
-      <p class="text-center">Com este tipo de pagamento, ser-lhe-á impresso um cartão electrónico, que poderá ser usado durante toda a sua estadia no bar,
-        para efectuar e adicionar pedidos à sua conta, e para efectuar o pagamento no fim. Por favor, para confirmar este tipo de pagamento, selecione o botão "Confirmar" e aguarde a chegada do seu pedido.</p>
-     <p class="text-center">
-       <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
-         <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-       </a>
-       <a class="btn btn-success btn-lg modal-close" href="#shoopingCart" data-toggle="modal" data-target="#myModal">
-         <span  class="glyphicon glyphicon-ok"></span> Confirmar
-       </a>
-     </p>
-   </div>
-
-</div>
-
-<div id="paymentLaterSuccess" class="modal-window">
-    <div>
-      <p class="text-center"> O seu pedido está a ser processado. Para mais informações sobre o seu pedido, por favor consulte o menu do estado do pedido, na barra de navegação.</p>
-     <p class="text-center">
-       <a class="btn btn-success btn-lg modal-close" href="#shoopingCart">
-         <span  class="glyphicon glyphicon-ok"></span> Continuar
-       </a>
-     </p>
-   </div>
-
-</div>
-
-<div id="paymentInGroupSuccess" class="modal-window">
-    <div>
-      <p class="text-center"> Obrigado!</p>
-     <p class="text-center">
-       <a class="btn btn-success btn-lg modal-close" href="#shoopingCart">
-         <span  class="glyphicon glyphicon-ok"></span> Continuar
-       </a>
-     </p>
-   </div>
-</div>
-
-
-
 <div id="payInGroup" class="modal-window">
     <div>
-     <p class="text-center">Este tipo de pagamento permite-lhe dividir os itens da sua conta, para efectuar pagamentos individuais. Ou dividir o total por um certo número de pessoas. Por favor, escolha os itens que deseja pagar e em seguida selecione o botão "Confirmar".</p>
+     <p class="text-center">Itens para pagar:</p>
      <table class="table">
        <thead>
          <tr>
@@ -349,7 +304,7 @@
            <th>Preço</th>
          </tr>
        </thead>
-       <tbody id="stateTable">
+       <tbody id="payTable">
        </tbody>
      </table>
 
@@ -373,7 +328,7 @@
        <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
          <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
        </a>
-       <a class="btn btn-success btn-lg modal-close" href="#payNow" data-toggle="modal" data-target="#myModalGroup" >
+       <a class="btn btn-success btn-lg modal-close" href="#payNow" data-toggle="modal" data-target="#confirmModal" >
          <span  class="glyphicon glyphicon-ok"></span> Confirmar
        </a>
      </p>
@@ -382,11 +337,10 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-center" id="myModalLabel">Confirmar Acção</h4>
       </div>
       <div class="modal-body">
@@ -396,7 +350,7 @@
         <a class="btn btn-danger btn-lg modal-close" data-dismiss="modal">
           <span  class="glyphicon glyphicon-remove" data-dismiss="modal"></span> Cancelar
         </a>
-        <a class="btn btn-success btn-lg modal-close" href="#paymentLaterSuccess">
+        <a onClick="ActionConfirmed(this.id)" id= "Confirm" class="btn btn-success btn-lg modal-close" href="#paymentLaterSuccess">
           <span  class="glyphicon glyphicon-ok" ></span> Continuar
         </a>
       </div>
@@ -404,29 +358,16 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-center" id="myModalLabel">Confirmar Acção</h4>
-      </div>
-      <div class="modal-body">
-        <p class="text-center">Tem a certeza que pretende continuar? </p>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-danger btn-lg modal-close" data-dismiss="modal">
-          <span  class="glyphicon glyphicon-remove" data-dismiss="modal"></span> Cancelar
-        </a>
-        <a class="btn btn-success btn-lg modal-close" href="#payNow">
-          <span  class="glyphicon glyphicon-ok" ></span> Continuar
-        </a>
-      </div>
-    </div>
-  </div>
+<div id="processOrder" class="modal-window">
+    <div>
+      <p class="text-center"> O seu pedido está a ser processado. Para mais informações sobre o seu pedido, por favor consulte o menu do estado do pedido, na barra de navegação.</p>
+     <p class="text-center">
+       <a class="btn btn-success btn-lg modal-close" href="#shoopingCart">
+         <span  class="glyphicon glyphicon-ok"></span> Continuar
+       </a>
+     </p>
+   </div>
 </div>
-
 
 <div class="alert alert-success" id="success-alert">
     <button type="button" class="close" data-dismiss="alert">x</button>
