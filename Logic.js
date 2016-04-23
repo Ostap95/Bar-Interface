@@ -3,7 +3,7 @@ function updateCartList() {
   // Loop over all stored values
   if(document.getElementById("cartTable").rows.length == 0) {
     store.forEach(function(key, val) {
-      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE'){
+      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE'){
         if(store.get(key).qnt != 0) {
           addRow('cartTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
         }
@@ -122,6 +122,7 @@ function doOnceFood() {
 
     store.set('BADGE', 0);
     store.set('FINALPRICE', 0);
+    store.set('STATETABLE', list)
 }
 
 /* Updates badge information in Item Information menus */
@@ -208,11 +209,68 @@ function refresh() {
 }
 
 function ActionConfirmed(id) {
-    $("#confirmModal").modal("hide");
+    $("#confirmModal").modal("hide"); // Hides window when confirm is clicked
 }
 
 
 function cashPayInfo() {
-  document.getElementsByClassName("final-price")[1].innerHTML = "€ " + finalPrice;
-  document.getElementsByClassName("final-price")[2].innerHTML = "€ " + finalPrice;
+  document.getElementsByClassName("final-price")[1].innerHTML = "Total: € " + finalPrice; // Final price from cash option
+  document.getElementsByClassName("final-price")[2].innerHTML = " Total: € " + finalPrice; // Final price from credit card option
+}
+
+function addToProcessTable(tableID, itemName, itemQnt, itemPrice) {
+  // Get a reference to the table
+  var tableRef = document.getElementById(tableID);
+  // Insert a row in the table at row index 0
+  var newRow   = tableRef.insertRow(0);
+  //store.set('COUNTER', store.get('COUNTER')++);
+  // Insert a cell in the row at index 0
+  var newCell  = newRow.insertCell(0);
+  // Append a text node to the cell
+  var newText  = document.createTextNode(itemName);
+  newCell.appendChild(newText);
+// ----------------------------------------------------------------
+
+  var newCell  = newRow.insertCell(1);
+  // Append a text node to the cell
+  var clone = document.getElementById("qnt").cloneNode(true);
+  clone.text = itemQnt;
+  //var newText  = document.createTextNode(itemQnt);
+  newCell.appendChild(clone);
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+  // Insert a cell in the row at index 0
+  var newCell  = newRow.insertCell(2);
+  // Append a text node to the cell
+  itemPrice = parseFloat(Math.round(itemPrice * 100) / 100).toFixed(2);
+  var newText  = document.createTextNode("€ "+itemPrice);
+  newCell.appendChild(newText);
+// ----------------------------------------------------------------
+}
+
+function paymentDone() {
+  // Loop over all stored values
+  var list = [];
+  if(document.getElementById("cartTable").rows.length != 0) {
+    store.forEach(function(key, val) {
+      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE'){
+        if(store.get(key).qnt != 0) {
+          //addToProcessTable('stateTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
+          list.push(store.get(key))
+        }
+      }
+    });
+    store.set('STATETABLE', list);
+    updateStateCard();
+  } else {
+    alert("O carrinho está vazio!")
+  }
+}
+
+function updateStateCard() {
+  var list = store.get('STATETABLE');
+  for (key in list) {
+    addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price);
+  }
+
 }

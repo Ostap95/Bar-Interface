@@ -43,7 +43,6 @@
   document.getElementById('cartTable').addEventListener('click',tableclick,false);
   </script>
 
-<body>
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -76,7 +75,7 @@
         <ul class="nav navbar-nav navbar-right" role="tablist">
           <div class="col-xs-3">
             <a href = "#stateMenu">
-              <button  onclick="searchItem()" type="button"  class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
+              <button  onClick="paymentDone()" type="button"  class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
                 <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
               </button>
             </a>
@@ -260,6 +259,9 @@
        <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
          <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
        </a>
+       <a onClick = "paymentDone()" class="btn btn-info btn-lg modal-close" href="#processOrder" >
+         <span  class="glyphicon glyphicon-ok"></span> Simular Pagamento
+       </a>
      </p>
    </div>
 
@@ -272,6 +274,9 @@
      <p class="text-center">
        <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
          <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
+       </a>
+       <a class="btn btn-info btn-lg modal-close" href="#processOrder" >
+         <span  class="glyphicon glyphicon-ok"></span> Simular Pagamento
        </a>
      </p>
    </div>
@@ -359,6 +364,4 @@
     <p class="text-center"><strong>Adicionado ao carrinho com sucesso </strong></p>
 </div>
 
-
-</body>
 </html>
