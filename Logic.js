@@ -100,8 +100,8 @@ function getBadge() {
 /* Updates Main Menu shooping Cart */
 function  updateMainMenuCart() {
   finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
-  document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
-  document.getElementById("total-price-menu").innerHTML = "€ " + finalPrice;
+  document.getElementsByClassName("total-price")[0].innerHTML = "Total: € " + finalPrice;
+  document.getElementsByClassName("final-price")[0].innerHTML = "€ " + finalPrice;
 }
 
 /* First thing to do when loading Food Category*/
@@ -128,15 +128,14 @@ function doOnceFood() {
 function updateBadge() {
   document.getElementById("shopping-badge").innerHTML = store.get('BADGE');
   finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
-  document.getElementById("final-price").innerHTML = "€ " + finalPrice;
-
+  document.getElementsByClassName("final-price")[0].innerHTML = "€ " + finalPrice;
 }
 
 /* Updates Cart in Item Information menus */
 function  updateCart() {
   finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
-  document.getElementById("total-price").innerHTML = "Total: € " + finalPrice;
-  document.getElementById("total-price-menu").innerHTML = "€ " + finalPrice;
+  document.getElementsByClassName("total-price")[0].innerHTML = "Total: € " + finalPrice;
+  document.getElementsByClassName("final-price")[0].innerHTML = "€ " + finalPrice;
   updateCartList();
 }
 
@@ -210,4 +209,10 @@ function refresh() {
 
 function ActionConfirmed(id) {
     $("#confirmModal").modal("hide");
+}
+
+
+function cashPayInfo() {
+  document.getElementsByClassName("final-price")[1].innerHTML = "€ " + finalPrice;
+  document.getElementsByClassName("final-price")[2].innerHTML = "€ " + finalPrice;
 }

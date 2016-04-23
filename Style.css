@@ -32,3 +32,14 @@
   font-size: 150%;
   margin: 0 0 15px;
 }
+
+body { padding-top: 70px;
+  font-family: 'Roboto';
+}
+p { font-size:25px; }
+.alignBtn{
+  position: relative;
+  height: auto;
+  top: 5px;
+  bottom: 2px;
+}

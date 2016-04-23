@@ -90,7 +90,7 @@
             </button></a>
           </div>
           <div class="col-xs-5 " style="top:9px; left:10px">
-            <p id="total-price-menu" class="text-right lead" style="font-size:180%">€ 0.0</p>
+            <p class="text-right lead final-price" style="font-size:180%">€ 0.0</p>
           </div>
         </ul>
       </div><!-- /.navbar-collapse -->
@@ -140,7 +140,7 @@
           <tbody id="cartTable">
           </tbody>
         </table>
-        <p id="total-price" class="text-right">Total: € 0.00</p>
+        <p class="text-right total-price">Total: € 0.00</p>
          <p class="text-center">
            <a class="btn btn-danger btn-lg modal-close" href="#modal-close" >
              <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
@@ -190,7 +190,7 @@
           <tbody id="stateTable">
           </tbody>
         </table>
-        <p id="total-price" class="text-center">Tempo médio de espera: # min</p>
+        <p class="text-center">Tempo médio de espera: # min</p>
          <p class="text-center">
            <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
              <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
@@ -203,10 +203,10 @@
       <div>
         <p class="text-center"> Por favor, escolha um método de pagamento.</p>
        <p class="text-center">
-         <a href="#cashPay" class="btn btn-success btn-lg" href="#modal-close">
+         <a onclick="cashPayInfo()" href="#cashPay" class="btn btn-success btn-lg" href="#modal-close">
            <span class="glyphicon glyphicon-euro"></span> Em Dinheiro
          </a>
-         <a href= "#creditCardPay" class="btn btn-success btn-lg" href="#modal-close">
+         <a onclick="cashPayInfo()" href= "#creditCardPay" class="btn btn-success btn-lg" href="#modal-close">
            <span class="glyphicon glyphicon-credit-card"></span> Cartão de Crédito
          </a>
        </p>
@@ -221,8 +221,8 @@
   <div id="cashPay" class="modal-window">
       <div>
         <p class="text-center"> Por favor, introduza a quantia indicada</p>
-       <p class="text-center"><font color="blue">Total: € 0.00</font></p>
-       <p class="text-center"><font color="green">Introduzido: € 0.00</font></p>
+       <p class="text-center final-price">Total: € 0.00</p>
+       <p class="text-center">Introduzido: € 0.00</p>
        <p class="text-center">
          <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
            <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
@@ -235,7 +235,7 @@
   <div id="creditCardPay" class="modal-window">
       <div>
         <p class="text-center"> Por favor, introduza o seu cartão de crédito no lugar indicado na mesa.</p>
-       <p class="text-center"><font color="blue">Total: € 0.00</font></p>
+       <p class="text-center final-price">Total: € 0.00</p>
        <p class="text-center">
          <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
            <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
@@ -390,7 +390,7 @@
         <tbody id="stateTable">
         </tbody>
       </table>
-      <p id="total-price" class="text-center">Tempo médio de espera: # min</p>
+      <p  class="text-center">Tempo médio de espera: # min</p>
        <p class="text-center">
          <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
