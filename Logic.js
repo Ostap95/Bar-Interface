@@ -257,20 +257,30 @@ function paymentDone() {
         if(store.get(key).qnt != 0) {
           //addToProcessTable('stateTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
           list.push(store.get(key))
+
+          var cpyPrice = store.get(key.toUpperCase()).price;
+          store.remove(key.toUpperCase()); // Removes the item form the local storage
+          store.set(key.toUpperCase(), { name: key, qnt: 0, price: cpyPrice});
+
         }
       }
     });
     store.set('STATETABLE', list);
-    updateStateCard();
+    store.set('BADGE', 0);
+    store.set('FINALPRICE', 0);
+    updateBadge();
+    updateCart();
+    updateCartList();
+
   } else {
     alert("O carrinho está vazio!")
   }
 }
 
+// Function used to update state cart list
 function updateStateCard() {
   var list = store.get('STATETABLE');
   for (key in list) {
     addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price);
   }
-
 }
