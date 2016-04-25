@@ -204,9 +204,6 @@ function searchItem(item) {
 
 }
 
-function refresh() {
-  location.reload();
-}
 
 function ActionConfirmed(id) {
     $("#confirmModal").modal("hide"); // Hides window when confirm is clicked
@@ -280,7 +277,11 @@ function paymentDone() {
 // Function used to update state cart list
 function updateStateCard() {
   var list = store.get('STATETABLE');
+  var total = 0;
   for (key in list) {
     addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price);
+    total += list[key].price;
   }
+  total = parseFloat(Math.round(total * 100) / 100).toFixed(2);
+  document.getElementsByClassName("processing-price")[0].innerHTML = "Total: € " + total;
 }
