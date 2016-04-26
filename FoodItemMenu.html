@@ -162,9 +162,9 @@
 
 
 <div id="shoopingCart" class="modal-window">
-    <div>
+    <div class="container-fluid">
       <p class="text-center"> Carrinho de Compras </p>
-      <table class="table">
+      <table class="table table-responsive">
         <thead>
           <tr>
             <th>Item</th>
@@ -185,7 +185,7 @@
            <span class="glyphicon glyphicon-euro"></span> Pagar
          </a>
          <a class="btn btn-warning btn-lg" href="#payInGroup">
-           <span class="glyphicon glyphicon-euro"></span> Pagar Individualmente
+           <span class="glyphicon glyphicon-euro"></span> Dividir a conta
          </a>
        </p>
      </div>
@@ -219,6 +219,7 @@
             <th>Item</th>
             <th>Quantidade</th>
             <th>Preço</th>
+            <th>Estado<th>
           </tr>
         </thead>
         <tbody id="stateTable">
@@ -286,23 +287,10 @@
 
 
 <div id="payInGroup" class="modal-window">
-    <div>
-     <p class="text-center">Itens para pagar:</p>
-     <table class="table">
-       <thead>
-         <tr>
-           <th>Item</th>
-           <th>Quantidade</th>
-           <th>Preço</th>
-         </tr>
-       </thead>
-       <tbody id="payTable">
-       </tbody>
-     </table>
-
+    <div class="row">
      <div class="form-group">
-      <label for="sel1">Dividir a conta por:</label>
-      <select class="form-control" id="sel1">
+      <p class="text-left">Dividir a conta por:</p>
+      <select class="form-control input-lg" id="sel1">
         <option>Não dividir</option>
         <option>2 Pessoas</option>
         <option>3 Pessoas</option>

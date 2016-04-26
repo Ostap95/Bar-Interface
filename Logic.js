@@ -215,7 +215,7 @@ function cashPayInfo() {
   document.getElementsByClassName("final-price")[2].innerHTML = " Total: € " + finalPrice; // Final price from credit card option
 }
 
-function addToProcessTable(tableID, itemName, itemQnt, itemPrice) {
+function addToProcessTable(tableID, itemName, itemQnt, itemPrice, state) {
   // Get a reference to the table
   var tableRef = document.getElementById(tableID);
   // Insert a row in the table at row index 0
@@ -243,7 +243,23 @@ function addToProcessTable(tableID, itemName, itemQnt, itemPrice) {
   var newText  = document.createTextNode("€ "+itemPrice);
   newCell.appendChild(newText);
 // ----------------------------------------------------------------
+
+// ----------------------------------------------------------------
+  // Insert a cell in the row at index 0
+  var newCell  = newRow.insertCell(3);
+  // Append a text node to the cell
+  //var newText  = document.createTextNode(state);
+
+
+  var para = document.createElement("p");                       // Create a <p> element
+  var t = document.createTextNode(state[0]);      // Create a text node
+  para.appendChild(t);
+  para.style.color = state[1]
+  para.style.fontSize = "15px"
+  newCell.appendChild(para);
+// ----------------------------------------------------------------
 }
+
 
 function paymentDone() {
   // Loop over all stored values
@@ -276,12 +292,16 @@ function paymentDone() {
 
 // Function used to update state cart list
 function updateStateCard() {
-  var list = store.get('STATETABLE');
-  var total = 0;
-  for (key in list) {
-    addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price);
-    total += list[key].price;
+  if (document.getElementById("stateTable").rows.length != store.get('STATETABLE').length) {
+
+    var list = store.get('STATETABLE');
+    var total = 0;
+    for (key in list) {
+      addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Em processamento", "orange"]);
+      total += list[key].price;
+    }
+    total = parseFloat(Math.round(total * 100) / 100).toFixed(2);
+    document.getElementsByClassName("processing-price")[0].innerHTML = "Total: € " + total;
   }
-  total = parseFloat(Math.round(total * 100) / 100).toFixed(2);
-  document.getElementsByClassName("processing-price")[0].innerHTML = "Total: € " + total;
+
 }
