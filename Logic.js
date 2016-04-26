@@ -18,13 +18,13 @@ function addCart(item) {
   var newPrice = store.get('FINALPRICE') + store.get(item.toUpperCase()).price;
   store.set('FINALPRICE', newPrice);
   var newqnt = store.get(item.toUpperCase()).qnt + 1;
-  store.set(item.toUpperCase(), { name: item, qnt: newqnt, price: store.get(item.toUpperCase()).price});
+  store.set(item.toUpperCase(), { name: item, qnt: newqnt, price: store.get(item.toUpperCase()).price, state: "Em processamento"});
   var tableRef = document.getElementById('cartTable'); // table reference
   var add = false; //
   for(var i = 0; i < tableRef.rows.length; i++) { // Loops through the table
     if(tableRef.rows[i].cells[0].innerHTML == item) {
       tableRef.rows[i].cells[1].getElementsByTagName("a")[0].innerHTML++;
-      store.set(item.toUpperCase(), {name: item, qnt: store.get(item.toUpperCase()).qnt++, price: store.get(item.toUpperCase()).price});
+      store.set(item.toUpperCase(), {name: item, qnt: store.get(item.toUpperCase()).qnt++, price: store.get(item.toUpperCase()).price, state: "Em processamento"});
       add = false;
       break;
     } else {
@@ -108,17 +108,17 @@ function  updateMainMenuCart() {
 function doOnceFood() {
     // do the stuff
     store.set("once","yes");
-    store.set("TOSTA", { name: "Tosta", qnt: 0, price: 2});
-    store.set("SANDES", { name: "Sandes", qnt: 0, price: 1});
-    store.set("BRUNCH", { name: "Brunch", qnt: 0, price: 5});
+    store.set("TOSTA", { name: "Tosta", qnt: 0, price: 2, state: "Em processamento"});
+    store.set("SANDES", { name: "Sandes", qnt: 0, price: 1, state: "Em processamento"});
+    store.set("BRUNCH", { name: "Brunch", qnt: 0, price: 5, state: "Em processamento"});
 
-    store.set("LIMONADA", { name: "Limonada", qnt: 0, price: 1});
-    store.set("ICEDTEA", { name: "IcedTea", qnt: 0, price: 1});
-    store.set("BATIDO", { name: "Batido", qnt: 0, price: 2.5});
+    store.set("LIMONADA", { name: "Limonada", qnt: 0, price: 1, state: "Em processamento"});
+    store.set("ICEDTEA", { name: "IcedTea", qnt: 0, price: 1, state: "Em processamento"});
+    store.set("BATIDO", { name: "Batido", qnt: 0, price: 2.5, state: "Em processamento"});
 
-    store.set("SWEETCAPPUCCINO", { name: "SweetCappuccino", qnt: 0, price: 1.5});
-    store.set("SPECIALMOKA", { name: "SpecialMoka", qnt: 0, price: 2.5});
-    store.set("CAPPUCHOC", { name: "Cappuchoc", qnt: 0, price: 2.0});
+    store.set("SWEETCAPPUCCINO", { name: "SweetCappuccino", qnt: 0, price: 1.5, state: "Em processamento"});
+    store.set("SPECIALMOKA", { name: "SpecialMoka", qnt: 0, price: 2.5, state: "Em processamento"});
+    store.set("CAPPUCHOC", { name: "Cappuchoc", qnt: 0, price: 2.0, state: "Em processamento"});
 
     store.set('BADGE', 0);
     store.set('FINALPRICE', 0);
@@ -151,7 +151,7 @@ function deleteRow(row) {
   store.set('FINALPRICE', price); // Updates the final price
   var cpyPrice = store.get(item.toUpperCase()).price;
   store.remove(item.toUpperCase()); // Removes the item form the local storage
-  store.set(item.toUpperCase(), { name: item, qnt: 0, price: cpyPrice});
+  store.set(item.toUpperCase(), { name: item, qnt: 0, price: cpyPrice, state: "Em processamento"});
   document.getElementById('cartTable').deleteRow(d-1); // Deletes the item
   updateBadge();
   updateCart();
@@ -165,7 +165,7 @@ function DecrementQuantity(row) {
   if (store.get(item.toUpperCase()).qnt > 1) {
     var newQnt = store.get(item.toUpperCase()).qnt - 1;
     cpyPrice = store.get(item.toUpperCase()).price;
-    store.set(item.toUpperCase(), { name: item, qnt: newQnt, price: cpyPrice});
+    store.set(item.toUpperCase(), { name: item, qnt: newQnt, price: cpyPrice, state: "Em processamento"});
 
     var badge = store.get('BADGE'); // Badge information
     store.set('BADGE', --badge); // Updates the badge
@@ -264,6 +264,10 @@ function addToProcessTable(tableID, itemName, itemQnt, itemPrice, state) {
 function paymentDone() {
   // Loop over all stored values
   var list = [];
+  statelist = store.get('STATETABLE');
+  for (x in statelist) {
+    list.push(statelist[x])
+  }
   if(document.getElementById("cartTable").rows.length != 0) {
     store.forEach(function(key, val) {
       if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE'){
@@ -273,7 +277,7 @@ function paymentDone() {
 
           var cpyPrice = store.get(key.toUpperCase()).price;
           store.remove(key.toUpperCase()); // Removes the item form the local storage
-          store.set(key.toUpperCase(), { name: key, qnt: 0, price: cpyPrice});
+          store.set(key.toUpperCase(), { name: key, qnt: 0, price: cpyPrice, state: "Em processamento"});
 
         }
       }
@@ -293,15 +297,35 @@ function paymentDone() {
 // Function used to update state cart list
 function updateStateCard() {
   if (document.getElementById("stateTable").rows.length != store.get('STATETABLE').length) {
-
     var list = store.get('STATETABLE');
     var total = 0;
     for (key in list) {
-      addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Em processamento", "orange"]);
-      total += list[key].price;
+      if (list[key].state.localeCompare("Em processamento") == 0)
+        addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Em processamento", "orange"]);
+      else
+        addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Processado", "green"]);
+      total += list[key].price * list[key].qnt;
     }
     total = parseFloat(Math.round(total * 100) / 100).toFixed(2);
     document.getElementsByClassName("processing-price")[0].innerHTML = "Total: € " + total;
   }
 
+}
+
+function simulateProcessing() {
+  var list = store.get('STATETABLE');
+  for (key in list) {
+    list[key].state = "Processado";
+  }
+  store.set('STATETABLE', list);
+  updateStateCard();
+  destroyModals();
+}
+function destroyModals(){
+  location.reload();
+}
+
+function closeModals() {
+  $('#shoopingCart, #processOrder, #cashPay, #payNow, #confirmModal, #payInGroup, #crediCardPay, #stateMenu').modal('hide');
+  destroyModals();
 }
