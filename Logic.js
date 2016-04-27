@@ -263,6 +263,7 @@ function addToProcessTable(tableID, itemName, itemQnt, itemPrice, state) {
 
 function paymentDone() {
   // Loop over all stored values
+  $('#shoopingCart, #cashPay, #payNow, #confirmModal, #payInGroup, #crediCardPay, #stateMenu').modal('hide');
   var list = [];
   statelist = store.get('STATETABLE');
   for (x in statelist) {
@@ -288,6 +289,7 @@ function paymentDone() {
     updateBadge();
     updateCart();
     updateCartList();
+    $('#processOrder').modal('show');
 
   } else {
     alert("O carrinho está vazio!")
@@ -328,4 +330,16 @@ function destroyModals(){
 function closeModals() {
   $('#shoopingCart, #processOrder, #cashPay, #payNow, #confirmModal, #payInGroup, #crediCardPay, #stateMenu').modal('hide');
   destroyModals();
+}
+
+function ActionConfirmed() {
+  $('#payInGroup,#confirmModal').modal('hide');
+}
+
+function selectedOption() {
+  var qnt = $('#payDividor').find(":selected").index();
+  price = store.get('FINALPRICE');
+  total = parseFloat(Math.round((price/(qnt+2)) * 100) / 100).toFixed(2);
+  document.getElementsByClassName("totalDividerText")[0].innerHTML = "Total por pessoa: €" + total;
+
 }

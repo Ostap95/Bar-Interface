@@ -190,7 +190,7 @@
           <a class="btn btn-warning btn-lg" data-toggle="modal" data-target="#payNow">
             <span class="glyphicon glyphicon-euro"></span> Pagar
           </a>
-          <a class="btn btn-warning btn-lg" data-toggle="modal" data-target="#payInGroup">
+          <a onclick="selectedOption()"class="btn btn-warning btn-lg" data-toggle="modal" data-target="#payInGroup">
             <span class="glyphicon glyphicon-euro"></span> Dividir a conta
           </a>
         </p>
@@ -254,7 +254,7 @@
 </div><!-- /.modal -->
 
 <div class="modal fade" id="payNow">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -286,7 +286,7 @@
 
 
 <div class="modal fade" id="cashPay">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -304,7 +304,7 @@
           <a class="btn btn-danger btn-lg" data-dismiss="modal" >
             <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
           </a>
-          <a onClick = "paymentDone()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#processOrder" >
+          <a onClick = "paymentDone()" class="btn btn-info btn-lg"  >
             <span  class="glyphicon glyphicon-ok"></span> Simular Pagamento
           </a>
         </p>
@@ -317,7 +317,7 @@
 
 
 <div class="modal fade" id="creditCardPay">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -334,7 +334,7 @@
           <a class="btn btn-danger btn-lg" data-dismiss="modal" >
             <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
           </a>
-          <a onClick = "paymentDone()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#processOrder" >
+          <a onClick = "paymentDone()" class="btn btn-info btn-lg"  >
             <span  class="glyphicon glyphicon-ok"></span> Simular Pagamento
           </a>
         </p>
@@ -345,7 +345,7 @@
 
 
 <div class="modal fade" id="payInGroup">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -355,8 +355,7 @@
       </div>
       <div class="modal-body">
         <p class="text-left">Dividir a conta por:</p>
-        <select class="form-control input-lg" id="sel1">
-          <option>Não dividir</option>
+        <select onClick="selectedOption()"class="form-control input-lg" id="payDividor">
           <option>2 Pessoas</option>
           <option>3 Pessoas</option>
           <option>4 Pessoas</option>
@@ -367,6 +366,7 @@
           <option>9 Pessoas</option>
           <option>10 Pessoas</option>
         </select>
+        <p class="text-right totalDividerText">Total por pessoa: € 0.0</p>
       </div>
       <div class="modal-footer">
         <p class="text-center">
@@ -384,7 +384,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title text-center" id="myModalLabel">Confirmar Acção</h4>
@@ -396,7 +396,7 @@
         <a class="btn btn-danger btn-lg" data-dismiss="modal">
           <span  class="glyphicon glyphicon-remove" data-dismiss="modal"></span> Cancelar
         </a>
-        <a onClick="ActionConfirmed(this.id)" id= "Confirm" class="btn btn-success btn-lg" href="#paymentLaterSuccess">
+        <a onClick="ActionConfirmed()" id= "Confirm" class="btn btn-success btn-lg" data-toggle="modal" data-target="#payNow">
           <span  class="glyphicon glyphicon-ok" ></span> Continuar
         </a>
       </div>
@@ -406,7 +406,7 @@
 
 
 <div class="modal fade" id ="processOrder">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
