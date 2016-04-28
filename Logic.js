@@ -137,6 +137,7 @@ function  updateCart() {
   finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
   document.getElementsByClassName("total-price")[0].innerHTML = "Total: € " + finalPrice;
   document.getElementsByClassName("final-price")[0].innerHTML = "€ " + finalPrice;
+  document.getElementsByClassName("final-price")[1].innerHTML = "€ " + finalPrice;
   updateCartList();
 }
 
@@ -325,6 +326,7 @@ function simulateProcessing() {
 }
 function destroyModals(){
   location.reload();
+  
 }
 
 function closeModals() {

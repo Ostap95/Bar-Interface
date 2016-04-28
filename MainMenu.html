@@ -65,38 +65,44 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <button type="button" class="btn btn-default btn-lg disabled alignBtn" aria-label="Left Align">
+        <button onclick="window.history.back()" type="button" class="btn btn-default btn-lg alignBtn" aria-label="Left Align">
           <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
         </button>
-        <button type="button" class="btn btn-default btn-lg active alignBtn" aria-label="Left Align">
+        <button onclick="location.href='MainMenu.html'" type="button" class="btn btn-default btn-lg alignBtn" aria-label="Left Align">
           <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
         </button>
       </div>
-
-
+      <div class="col-sm-3 col-md-3" >
+        <form class="navbar-form" role="search">
+          <div class="input-group input-group-lg" style="top:-3px; margin-bottom:-6px">
+              <input type="text" class="form-control" placeholder="Procurar Item" name="srch-term" id="srch-term">
+              <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+          </div>
+        </form>
+      </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right" role="tablist">
-          <div class="col-xs-3 ">
-            <button type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
-              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-            </button>
+          <div class="col-xs-3">
+              <button  onClick="updateStateCard()" type="button"  class="btn btn-default btn-lg alignBtn"  aria-label="Left Align" data-toggle="modal" data-target="#stateMenu">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+              </button>
           </div>
           <div class="col-xs-3">
-            <a href="#shoopingCart">
-            <button onclick="updateCartList()"type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align">
+            <button onclick="updateCart();"type="button" class="btn btn-default btn-lg alignBtn"  aria-label="Left Align" data-toggle="modal" data-target="#shoopingCart">
               <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
               <span id="shopping-badge"class="badge">0</span>
-            </button></a>
+            </button>
           </div>
           <div class="col-xs-5 " style="top:9px; left:10px">
-            <p class="text-right lead final-price" style="font-size:180%">€ 0.0</p>
+            <p class="text-right lead final-price" style="font-size:180%; padding-top:0px;">€ 0.0</p>
           </div>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-
   <div>
     <p class="text-center"> Categorias </p>
   </div>
@@ -125,38 +131,47 @@
 
   <!-- POPUP MENU -->
 
-  <div id="shoopingCart" class="modal-window">
-      <div>
-        <p class="text-center"> Carrinho de Compras </p>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Quantidade</th>
-              <th>Preço</th>
-              <th>Remover</th>
-            </tr>
-          </thead>
-          <tbody id="cartTable">
-          </tbody>
-        </table>
-        <p class="text-right total-price">Total: € 0.00</p>
-         <p class="text-center">
-           <a class="btn btn-danger btn-lg modal-close" href="#modal-close" >
-             <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-           </a>
-           <a  href="#payNow" class="btn btn-warning btn-lg">
-             <span class="glyphicon glyphicon-euro"></span> Pagar agora
-           </a>
-           <a class="btn btn-warning btn-lg" href="#payLater">
-             <span class="glyphicon glyphicon-euro"></span> Pagar depois
-           </a>
-           <a class="btn btn-warning btn-lg" href="#payInGroup">
-             <span class="glyphicon glyphicon-euro"></span> Pagar em grupo
-           </a>
-         </p>
-       </div>
-  </div>
+  <div class="modal fade" id="shoopingCart">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h2 class="modal-title text-center">Carrinho de Compras</h2>
+        </div>
+        <div class="modal-body">
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Quantidade</th>
+                <th>Preço</th>
+                <th>Remover</th>
+              </tr>
+            </thead>
+            <tbody id="cartTable">
+            </tbody>
+          </table>
+          <p class="text-right total-price">Total: € 0.00</p>
+        </div>
+        <div class="modal-footer">
+          <p class="text-center">
+            <a class="btn btn-danger btn-lg" data-dismiss="modal">
+              <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+            </a>
+            <a class="btn btn-warning btn-lg" data-toggle="modal" data-target="#payNow">
+              <span class="glyphicon glyphicon-euro"></span> Pagar
+            </a>
+            <a onclick="selectedOption()"class="btn btn-warning btn-lg" data-toggle="modal" data-target="#payInGroup">
+              <span class="glyphicon glyphicon-euro"></span> Dividir a conta
+            </a>
+          </p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
 
   <!-- Shoping cart table items -->
   <div style="display:none">
@@ -175,176 +190,261 @@
   <!-- Shoping cart table items END -->
 
 
-
-  <div id="stateMenu" class="modal-window">
-      <div>
-        <p class="text-center"> Estado do Pedido </p>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Quantidade</th>
-              <th>Preço</th>
-            </tr>
-          </thead>
-          <tbody id="stateTable">
-          </tbody>
-        </table>
-        <p class="text-center">Tempo médio de espera: # min</p>
-         <p class="text-center">
-           <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
-             <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-           </a>
-         </p>
-       </div>
-  </div>
-
-  <div id="payNow" class="modal-window">
-      <div>
-        <p class="text-center"> Por favor, escolha um método de pagamento.</p>
-       <p class="text-center">
-         <a onclick="cashPayInfo()" href="#cashPay" class="btn btn-success btn-lg" href="#modal-close">
-           <span class="glyphicon glyphicon-euro"></span> Em Dinheiro
-         </a>
-         <a onclick="cashPayInfo()" href= "#creditCardPay" class="btn btn-success btn-lg" href="#modal-close">
-           <span class="glyphicon glyphicon-credit-card"></span> Cartão de Crédito
-         </a>
-       </p>
-       <p class="text-center">
-         <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
-           <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-         </a>
-       </p>
-     </div>
-  </div>
-
-  <div id="cashPay" class="modal-window">
-      <div>
-        <p class="text-center"> Por favor, introduza a quantia indicada</p>
-       <p class="text-center final-price">Total: € 0.00</p>
-       <p class="text-center">Introduzido: € 0.00</p>
-       <p class="text-center">
-         <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
-           <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
-         </a>
-       </p>
-     </div>
-
-  </div>
-
-  <div id="creditCardPay" class="modal-window">
-      <div>
-        <p class="text-center"> Por favor, introduza o seu cartão de crédito no lugar indicado na mesa.</p>
-       <p class="text-center final-price">Total: € 0.00</p>
-       <p class="text-center">
-         <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
-           <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
-         </a>
-       </p>
-     </div>
-  </div>
-
-
-  <div id="payLater" class="modal-window">
-      <div>
-        <p class="text-center">Com este tipo de pagamento, ser-lhe-á impresso um cartão electrónico, que poderá ser usado durante toda a sua estadia no bar,
-          para efectuar e adicionar pedidos à sua conta, e para efectuar o pagamento no fim. Por favor, para confirmar este tipo de pagamento, selecione o botão "Confirmar" e aguarde a chegada do seu pedido.</p>
-       <p class="text-center">
-         <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
-           <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-         </a>
-         <a class="btn btn-success btn-lg modal-close" href="#shoopingCart" data-toggle="modal" data-target="#myModal">
-           <span  class="glyphicon glyphicon-ok"></span> Confirmar
-         </a>
-       </p>
-     </div>
-
-  </div>
-
-  <div id="paymentLaterSuccess" class="modal-window">
-      <div>
-        <p class="text-center"> O seu pedido está a ser processado. Para mais informações sobre o seu pedido, por favor consulte o menu do estado do pedido, na barra de navegação.</p>
-       <p class="text-center">
-         <a class="btn btn-success btn-lg modal-close" href="#shoopingCart">
-           <span  class="glyphicon glyphicon-ok"></span> Continuar
-         </a>
-       </p>
-     </div>
-
-  </div>
-
-  <div id="paymentInGroupSuccess" class="modal-window">
-      <div>
-        <p class="text-center"> Obrigado!</p>
-       <p class="text-center">
-         <a class="btn btn-success btn-lg modal-close" href="#shoopingCart">
-           <span  class="glyphicon glyphicon-ok"></span> Continuar
-         </a>
-       </p>
-     </div>
-  </div>
-
-
-
-  <div id="payInGroup" class="modal-window">
-      <div>
-       <p class="text-center">Este tipo de pagamento permite-lhe dividir os itens da sua conta, para efectuar pagamentos individuais. Ou dividir o total por um certo número de pessoas. Por favor, escolha os itens que deseja pagar e em seguida selecione o botão "Confirmar".</p>
-       <table class="table">
-         <thead>
-           <tr>
-             <th>Item</th>
-             <th>Quantidade</th>
-             <th>Preço</th>
-           </tr>
-         </thead>
-         <tbody id="stateTable">
-         </tbody>
-       </table>
-
-       <div class="form-group">
-        <label for="sel1">Dividir a conta por:</label>
-        <select class="form-control" id="sel1">
-          <option>Não dividir</option>
-          <option>2 Pessoas</option>
-          <option>3 Pessoas</option>
-          <option>4 Pessoas</option>
-          <option>5 Pessoas</option>
-          <option>6 Pessoas</option>
-          <option>7 Pessoas</option>
-          <option>8 Pessoas</option>
-          <option>9 Pessoas</option>
-          <option>10 Pessoas</option>
-        </select>
-      </div>
-
-       <p class="text-center">
-         <a class="btn btn-danger btn-lg modal-close" href="#shoopingCart" >
-           <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-         </a>
-         <a class="btn btn-success btn-lg modal-close" href="#payNow" data-toggle="modal" data-target="#myModalGroup" >
-           <span  class="glyphicon glyphicon-ok"></span> Confirmar
-         </a>
-       </p>
-     </div>
-  </div>
-
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade" id="stateMenu">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h2 class="modal-title text-center">Estado dos Pedidos</h2>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Quantidade</th>
+                <th>Preço</th>
+                <th>Estado<th>
+              </tr>
+            </thead>
+            <tbody id="stateTable">
+            </tbody>
+          </table>
+          <p class="text-right processing-price">Total: € 0.0</p>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-danger btn-lg" data-dismiss="modal">
+            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+          </a>
+          <a class="btn btn-info btn-lg"  onClick="simulateProcessing()">
+            <span  class="glyphicon glyphicon-ok"></span> Simular Processamento
+          </a>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div class="modal fade" id="payNow">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h2 class="modal-title text-center">Pagamento</h2>
+        </div>
+        <div class="modal-body">
+          <p class="text-center">Por favor, escolha um método de pagamento</p>
+          <p class="text-center final-price">Total: € 0.00</p>
+        </div>
+        <div class="modal-footer">
+          <p class="text-center">
+            <a onclick="cashPayInfo()" class="btn btn-success btn-lg" data-toggle="modal" data-target="#cashPay">
+              <span class="glyphicon glyphicon-euro"></span> Em Dinheiro
+            </a>
+            <a onclick="cashPayInfo()" class="btn btn-success btn-lg" data-toggle="modal" data-target="#creditCardPay">
+              <span class="glyphicon glyphicon-credit-card"></span> Cartão de Crédito
+            </a>
+          </p>
+          <p class="text-center">
+            <a class="btn btn-danger btn-lg" data-dismiss="modal">
+              <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+            </a>
+          </p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+  <div class="modal fade" id="cashPay">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h2 class="modal-title text-center">Pagamento em Dinheiro</h2>
+        </div>
+        <div class="modal-body">
+          <p class="text-center"> Por favor, introduza a quantia indicada</p>
+         <p class="text-center final-price">Total: € 0.00</p>
+         <p class="text-center">Introduzido: € 0.00</p>
+        </div>
+        <div class="modal-footer">
+          <p class="text-center">
+            <a class="btn btn-danger btn-lg" data-dismiss="modal" >
+              <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
+            </a>
+            <a onClick = "paymentDone()" class="btn btn-info btn-lg"  >
+              <span  class="glyphicon glyphicon-ok"></span> Simular Pagamento
+            </a>
+          </p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+
+
+  <div class="modal fade" id="creditCardPay">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h2 class="modal-title text-center">Pagamento com Cartão de Crédito</h2>
+        </div>
+        <div class="modal-body">
+          <p class="text-center"> Por favor, introduza o seu cartão de crédito no lugar indicado na mesa.</p>
+          <p class="text-center final-price">Total: € 0.00</p>
+        </div>
+        <div class="modal-footer">
+          <p class="text-center">
+            <a class="btn btn-danger btn-lg" data-dismiss="modal" >
+              <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
+            </a>
+            <a class="btn btn-info btn-lg" data-toggle="modal" data-target="#keyPad">
+              <span  class="glyphicon glyphicon-ok"></span> Simular Pagamento
+            </a>
+          </p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+  <div class="modal fade" id="keyPad">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h2 class="modal-title text-center">Multibanco</h2>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <input id="PIN"type="password" class="form-control"  placeholder="PIN">
+          </div>
+          <div style="text-align: center">
+          <div class="row">
+              <button value="1" onclick="addPin(this.value)"type="button" class="btn btn-default btn-lg keypad">
+                <span>1</span>
+              </button>
+              <button value="2" onclick="addPin(this.value)" type="button" class="btn btn-default btn-lg keypad">
+                <span>2</span>
+              </button>
+              <button value="3" onclick="addPin(this.value)" type="button" class="btn btn-default btn-lg keypad">
+                <span>3</span>
+              </button>
+          </div>
+
+          <div class="row">
+              <button value="4" onclick="addPin(this.value)" type="button" class="btn btn-default btn-lg">
+                <span>4</span>
+              </button>
+              <button value="5" onclick="addPin(this.value)" type="button" class="btn btn-default btn-lg">
+                <span>5</span>
+              </button>
+              <button value="6" onclick="addPin(this.value)" type="button" class="btn btn-default btn-lg">
+                <span>6</span>
+              </button>
+          </div>
+
+          <div class="row">
+              <button value="7"  onclick="addPin(this.value)" type="button" class="btn btn-default btn-lg">
+                <span>7</span>
+              </button>
+              <button value="8"  onclick="addPin(this.value)" type="button" class="btn btn-default btn-lg">
+                <span>8</span>
+              </button>
+              <button value="9"  onclick="addPin(this.value)" type="button" class="btn btn-default btn-lg">
+                <span>9</span>
+              </button>
+          </div>
+          <div class="row">
+              <button onClick="goBackPIN()"value="7"  type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+              </button>
+              <button value="0"  onclick="addPin(this.value)" type="button" class="btn btn-default btn-lg">
+                <span>0</span>
+              </button>
+              <button onClick = "checkPIN()" value="9"  type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-ok"></span>
+              </button>
+          </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <p class="text-center">
+            <a class="btn btn-danger btn-lg" data-dismiss="modal" >
+              <span  class="glyphicon glyphicon-arrow-left"></span> Alterar Método de Pagamento
+            </a>
+          </p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+  <div class="modal fade" id="payInGroup">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h2 class="modal-title text-center">Dividir conta</h2>
+        </div>
+        <div class="modal-body">
+          <p class="text-left">Dividir a conta por:</p>
+          <select onClick="selectedOption()"class="form-control input-lg" id="payDividor">
+            <option>2 Pessoas</option>
+            <option>3 Pessoas</option>
+            <option>4 Pessoas</option>
+            <option>5 Pessoas</option>
+            <option>6 Pessoas</option>
+            <option>7 Pessoas</option>
+            <option>8 Pessoas</option>
+            <option>9 Pessoas</option>
+            <option>10 Pessoas</option>
+          </select>
+          <p class="text-right totalDividerText">Total por pessoa: € 0.0</p>
+        </div>
+        <div class="modal-footer">
+          <p class="text-center">
+            <a class="btn btn-danger btn-lg" data-dismiss="modal" >
+              <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+            </a>
+            <a class="btn btn-success btn-lg" href="#payNow" data-toggle="modal" data-target="#confirmModal" >
+              <span  class="glyphicon glyphicon-ok"></span> Confirmar
+            </a>
+          </p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
           <h4 class="modal-title text-center" id="myModalLabel">Confirmar Acção</h4>
         </div>
         <div class="modal-body">
           <p class="text-center">Tem a certeza que pretende continuar? </p>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-danger btn-lg modal-close" data-dismiss="modal">
+          <a class="btn btn-danger btn-lg" data-dismiss="modal">
             <span  class="glyphicon glyphicon-remove" data-dismiss="modal"></span> Cancelar
           </a>
-          <a class="btn btn-success btn-lg modal-close" href="#paymentLaterSuccess">
+          <a onClick="ActionConfirmed()" id= "Confirm" class="btn btn-success btn-lg" data-toggle="modal" data-target="#payNow">
             <span  class="glyphicon glyphicon-ok" ></span> Continuar
           </a>
         </div>
@@ -352,52 +452,29 @@
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModalGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+
+  <div class="modal fade" id ="processOrder">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title text-center" id="myModalLabel">Confirmar Acção</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h2 class="modal-title text-center"> Pedido efectuado com sucesso</h2>
         </div>
         <div class="modal-body">
-          <p class="text-center">Tem a certeza que pretende continuar? </p>
+          <p>O seu pedido está a ser processado. Para mais informações sobre o seu pedido, por favor consulte o menu do estado do pedido, na barra de navegação.</p>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-danger btn-lg modal-close" data-dismiss="modal">
-            <span  class="glyphicon glyphicon-remove" data-dismiss="modal"></span> Cancelar
-          </a>
-          <a class="btn btn-success btn-lg modal-close" href="#payNow">
-            <span  class="glyphicon glyphicon-ok" ></span> Continuar
-          </a>
+          <p class="text-center">
+            <a onclick="closeModals()" class="btn btn-success btn-lg">
+              <span  class="glyphicon glyphicon-ok"></span> Continuar
+            </a>
+          </p>
         </div>
-      </div>
-    </div>
-  </div>
-<!-- Shoping cart table items END -->
-
-<div id="stateMenu" class="modal-window">
-    <div>
-      <p class="text-center"> Estado do Pedido </p>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Quantidade</th>
-            <th>Preço</th>
-          </tr>
-        </thead>
-        <tbody id="stateTable">
-        </tbody>
-      </table>
-      <p  class="text-center">Tempo médio de espera: # min</p>
-       <p class="text-center">
-         <a class="btn btn-info btn-lg modal-close" href="#modal-close" >
-           <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-         </a>
-       </p>
-     </div>
-</div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 
 </html>
