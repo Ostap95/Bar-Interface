@@ -328,12 +328,12 @@ function destroyModals(){
 }
 
 function closeModals() {
-  $('#shoopingCart, #processOrder, #cashPay, #payNow, #confirmModal, #payInGroup, #crediCardPay, #stateMenu').modal('hide');
+  $('#shoopingCart, #processOrder, #keyPad, #cashPay, #payNow, #confirmModal, #payInGroup, #crediCardPay, #stateMenu').modal('hide');
   destroyModals();
 }
 
 function ActionConfirmed() {
-  $('#payInGroup,#confirmModal').modal('hide');
+  $('#payInGroup,#confirmModal, #keyPad').modal('hide');
 }
 
 function selectedOption() {
@@ -342,4 +342,16 @@ function selectedOption() {
   total = parseFloat(Math.round((price/(qnt+2)) * 100) / 100).toFixed(2);
   document.getElementsByClassName("totalDividerText")[0].innerHTML = "Total por pessoa: €" + total;
 
+}
+
+function addPin(val) {
+  $('#PIN').val($('#PIN').val() + val);
+}
+function goBackPIN() {
+
+}
+
+function checkPIN() {
+  if ($('#PIN').val().length != 0) paymentDone();
+  else alert("Introduza o PIN")
 }
