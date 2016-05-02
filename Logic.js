@@ -3,7 +3,7 @@ function updateCartList() {
   // Loop over all stored values
   if(document.getElementById("cartTable").rows.length == 0) {
     store.forEach(function(key, val) {
-      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE'){
+      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE' && key != 'STATEOPEN'){
         if(store.get(key).qnt != 0) {
           addRow('cartTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
         }
@@ -122,7 +122,8 @@ function doOnceFood() {
 
     store.set('BADGE', 0);
     store.set('FINALPRICE', 0);
-    store.set('STATETABLE', list)
+    store.set('STATETABLE', list);
+    store.set('STATEOPEN', 0);
 }
 
 /* Updates badge information in Item Information menus */
@@ -134,6 +135,7 @@ function updateBadge() {
 
 /* Updates Cart in Item Information menus */
 function  updateCart() {
+  checkBadge();
   finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
   document.getElementsByClassName("total-price")[0].innerHTML = "Total: € " + finalPrice;
   document.getElementsByClassName("final-price")[0].innerHTML = "€ " + finalPrice;
@@ -272,7 +274,7 @@ function paymentDone() {
   }
   if(document.getElementById("cartTable").rows.length != 0) {
     store.forEach(function(key, val) {
-      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE'){
+      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE' && key != 'STATEOPEN'){
         if(store.get(key).qnt != 0) {
           //addToProcessTable('stateTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
           list.push(store.get(key))
@@ -292,8 +294,6 @@ function paymentDone() {
     updateCartList();
     $('#processOrder').modal('show');
 
-  } else {
-    alert("O carrinho está vazio!")
   }
 }
 
@@ -316,6 +316,7 @@ function updateStateCard() {
 }
 
 function simulateProcessing() {
+  store.set('STATEOPEN',1);
   var list = store.get('STATETABLE');
   for (key in list) {
     list[key].state = "Processado";
@@ -326,13 +327,18 @@ function simulateProcessing() {
 }
 function destroyModals(){
   location.reload();
-  
 }
 
-function closeModals() {
+function closeModals(numb) {
   $('#shoopingCart, #processOrder, #keyPad, #cashPay, #payNow, #confirmModal, #payInGroup, #crediCardPay, #stateMenu').modal('hide');
   destroyModals();
+  if(numb == 2) {
+    store.set('STATEOPEN',1);
+  } else {
+    store.set('STATEOPEN',0);
+  }
 }
+
 
 function ActionConfirmed() {
   $('#payInGroup,#confirmModal, #keyPad').modal('hide');
@@ -356,4 +362,19 @@ function goBackPIN() {
 function checkPIN() {
   if ($('#PIN').val().length != 0) paymentDone();
   else alert("Introduza o PIN")
+}
+
+function checkBadge() {
+  var badge = store.get('BADGE');
+  if (badge == 0) {
+    $('a.payButton').attr('disabled', true);
+    $('a.payButton').prop('disabled', true);
+    $('a.divideButton').attr('disabled', true);
+    $('a.divideButton').prop('disabled', true);
+  } else {
+    $('a.payButton').attr('disabled', false);
+    $('a.payButton').prop('disabled', false);
+    $('a.divideButton').attr('disabled', false);
+    $('a.divideButton').prop('disabled', false);
+  }
 }

@@ -22,16 +22,23 @@
   <script src="Logic.js"></script>
 
   <script>
-  $(document).ready (function(){
-            $("#success-alert").hide();
-            $("#Limonada, #Batido, #IcedTea").click(function showAlert() {
-                $("#success-alert").alert();
-                $("#success-alert").fadeTo(1200, 500).slideUp(500, function(){
+      $(document).ready (function(){
                 $("#success-alert").hide();
+                $("#Limonada, #Batido, #IcedTea").click(function showAlert() {
+                    $("#success-alert").alert();
+                    $("#success-alert").fadeTo(1200, 500).slideUp(500, function(){
+                    $("#success-alert").hide();
+                    });
                 });
-            });
 
- });
+     });
+     $(window).load(function(){
+        if (store.get('STATEOPEN') == 1) {
+            $('#stateMenu').modal('show');
+            store.set('STATEOPEN', 0);
+        }
+
+     });
 
     function onStart() {
       updateBadge();
@@ -183,10 +190,10 @@
           <a class="btn btn-danger btn-lg" data-dismiss="modal">
             <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
           </a>
-          <a class="btn btn-warning btn-lg" data-toggle="modal" data-target="#payNow">
+          <a class="btn btn-warning btn-lg payButton" data-toggle="modal" data-target="#payNow">
             <span class="glyphicon glyphicon-euro"></span> Pagar
           </a>
-          <a onclick="selectedOption()"class="btn btn-warning btn-lg" data-toggle="modal" data-target="#payInGroup">
+          <a onclick="selectedOption()"class="btn btn-warning btn-lg divideButton" data-toggle="modal" data-target="#payInGroup">
             <span class="glyphicon glyphicon-euro"></span> Dividir a conta
           </a>
         </p>

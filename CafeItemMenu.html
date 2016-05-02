@@ -36,6 +36,13 @@
                 });
 
      });
+     $(window).load(function(){
+        if (store.get('STATEOPEN') == 1) {
+            $('#stateMenu').modal('show');
+            store.set('STATEOPEN', 0);
+        }
+
+     });
 
       updateBadge();
       updateCartList();
@@ -200,10 +207,10 @@
           <a class="btn btn-danger btn-lg" data-dismiss="modal">
             <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
           </a>
-          <a class="btn btn-warning btn-lg" data-toggle="modal" data-target="#payNow">
+          <a class="btn btn-warning btn-lg payButton" data-toggle="modal" data-target="#payNow">
             <span class="glyphicon glyphicon-euro"></span> Pagar
           </a>
-          <a onclick="selectedOption()"class="btn btn-warning btn-lg" data-toggle="modal" data-target="#payInGroup">
+          <a onclick="selectedOption()"class="btn btn-warning btn-lg divideButton" data-toggle="modal" data-target="#payInGroup">
             <span class="glyphicon glyphicon-euro"></span> Dividir a conta
           </a>
         </p>
