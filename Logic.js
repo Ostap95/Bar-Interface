@@ -207,15 +207,10 @@ function searchItem(item) {
 
 }
 
-
-function ActionConfirmed(id) {
-    $("#confirmModal").modal("hide"); // Hides window when confirm is clicked
-}
-
-
 function cashPayInfo() {
-  document.getElementsByClassName("final-price")[1].innerHTML = "Total: € " + finalPrice; // Final price from cash option
-  document.getElementsByClassName("final-price")[2].innerHTML = " Total: € " + finalPrice; // Final price from credit card option
+    document.getElementsByClassName("final-price")[1].innerHTML = "Total: € " + finalPrice; // Final price from cash option
+    document.getElementsByClassName("final-price")[2].innerHTML = " Total: € " + finalPrice; // Final price from credit card option
+    document.getElementsByClassName("final-price")[3].innerHTML = " Total: € " + finalPrice; // Final price from credit card option
 }
 
 function addToProcessTable(tableID, itemName, itemQnt, itemPrice, state) {
@@ -260,6 +255,14 @@ function addToProcessTable(tableID, itemName, itemQnt, itemPrice, state) {
   para.style.color = state[1]
   para.style.fontSize = "15px"
   newCell.appendChild(para);
+
+
+  // Insert a cell in the row at index 0
+  var newCell  = newRow.insertCell(4);
+  var clone = document.getElementById("add-button").cloneNode(true),
+  timestamp = Date.now();
+  clone.id+='_'+timestamp;
+  newCell.appendChild(clone);
 // ----------------------------------------------------------------
 }
 
@@ -304,9 +307,9 @@ function updateStateCard() {
     var total = 0;
     for (key in list) {
       if (list[key].state.localeCompare("Em processamento") == 0)
-        addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Em processamento", "orange"]);
+        addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Pedido a ser feito", "orange"]);
       else
-        addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Processado", "green"]);
+        addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Pedido entregue", "green"]);
       total += list[key].price * list[key].qnt;
     }
     total = parseFloat(Math.round(total * 100) / 100).toFixed(2);
@@ -319,7 +322,7 @@ function simulateProcessing() {
   store.set('STATEOPEN',1);
   var list = store.get('STATETABLE');
   for (key in list) {
-    list[key].state = "Processado";
+    list[key].state = "Pedido entregue";
   }
   store.set('STATETABLE', list);
   updateStateCard();
@@ -342,6 +345,17 @@ function closeModals(numb) {
 
 function ActionConfirmed() {
   $('#payInGroup,#confirmModal, #keyPad').modal('hide');
+  var qnt = $('#payDividor').find(":selected").index();
+  price = store.get('FINALPRICE');
+  total = parseFloat(Math.round((price/(qnt+2)) * 100) / 100).toFixed(2);
+  for(var i = 0; i < qnt + 2; i++) {
+    var modalclone = $('#payNowGroup').clone(true);
+    modalclone.find('h2:first').html("Pagamento #" + (qnt + 2 - i));
+    modalclone.find('p:nth-child(2)').html("Total: € " + total);
+    document.getElementsByClassName("final-price")[2].innerHTML = " Total: € " + total; // Final price from cashPay option
+    document.getElementsByClassName("final-price")[3].innerHTML = " Total: € " + total; // Final price from credit card option
+    modalclone.modal('show');
+  }
 }
 
 function selectedOption() {
@@ -376,5 +390,26 @@ function checkBadge() {
     $('a.payButton').prop('disabled', false);
     $('a.divideButton').attr('disabled', false);
     $('a.divideButton').prop('disabled', false);
+  }
+}
+
+function addCartFromState(row) {
+  var d = row.parentNode.parentNode.rowIndex; // Row index
+  var item = row.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML; // Name of the item
+  addCart(item)
+  $(document).ready (function(){
+    $("#success-alert-state").hide();
+    $("#success-alert-state").alert();
+    $("#success-alert-state").fadeTo(1200, 500).slideUp(500, function(){
+    $("#success-alert-state").hide();
+    });
+ });
+}
+
+function modalO(id) {
+  if (id == 1) {
+    $('#cashPay').modal('show');
+  } else {
+    $('#crediCardPay').modal('show');
   }
 }

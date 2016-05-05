@@ -23,14 +23,18 @@
 
   <script>
       $(document).ready (function(){
-                $("#success-alert").hide();
-                $("#Brunch, #Tosta, #Sandes").click(function showAlert() {
-                    $("#success-alert").alert();
-                    $("#success-alert").fadeTo(1200, 500).slideUp(500, function(){
-                    $("#success-alert").hide();
-                    });
-                });
+        $("#success-alert").hide();
+        $("#success-alert-state").hide();
+        $("#Brunch, #Tosta, #Sandes").click(function showAlert() {
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(1200, 500).slideUp(500, function(){
+            $("#success-alert").hide();
+            });
+        });
+
      });
+
+
 
      $(window).load(function(){
         if (store.get('STATEOPEN') == 1) {
@@ -219,6 +223,10 @@
   <button value="Delete" onclick="deleteRow(this)" id="trash-button" type="button" class="btn btn-danger btn-lg">
     <span class="glyphicon glyphicon-trash"></span>
   </button>
+
+  <button href= "#success-alert-state" value="AddToCart" onclick="addCartFromState(this)" id="add-button" type="button" class="btn btn-success btn-lg">
+    <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
+  </button>
 </div>
 <!-- Shoping cart table items END -->
 
@@ -248,6 +256,10 @@
         <p class="text-right processing-price">Total: € 0.0</p>
       </div>
       <div class="modal-footer">
+        <div class="alert alert-success" id="success-alert-state">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <p class="text-center"><strong>Adicionado ao carrinho com sucesso </strong></p>
+        </div>
         <a class="btn btn-danger btn-lg" data-dismiss="modal">
           <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
         </a>
@@ -283,7 +295,32 @@
         </p>
         <p class="text-center">
           <a class="btn btn-danger btn-lg" data-dismiss="modal">
-            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+            <span class="glyphicon glyphicon-arrow-left"></span> Retroceder
+          </a>
+        </p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="payNowGroup">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title text-center">Pagamento</h2>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">Por favor, escolha um método de pagamento</p>
+        <p class="text-center groupPay">Total: € 0.00</p>
+      </div>
+      <div class="modal-footer">
+        <p class="text-center">
+          <a onclick="modalO(1)"class="btn btn-success btn-lg" data-dismiss="modal">
+            <span class="glyphicon glyphicon-euro"></span> Em Dinheiro
+          </a>
+          <a onclick="modalO(2)"class="btn btn-success btn-lg" data-dismiss="modal">
+            <span class="glyphicon glyphicon-credit-card"></span> Cartão de Crédito
           </a>
         </p>
       </div>
@@ -477,7 +514,7 @@
         <a class="btn btn-danger btn-lg" data-dismiss="modal">
           <span  class="glyphicon glyphicon-remove" data-dismiss="modal"></span> Cancelar
         </a>
-        <a onClick="ActionConfirmed()" id= "Confirm" class="btn btn-success btn-lg" data-toggle="modal" data-target="#payNow">
+        <a onClick="ActionConfirmed()" id= "Confirm" class="btn btn-success btn-lg">
           <span  class="glyphicon glyphicon-ok" ></span> Continuar
         </a>
       </div>
