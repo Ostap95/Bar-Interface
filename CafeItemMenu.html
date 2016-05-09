@@ -78,9 +78,6 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <button onclick="window.history.back()" type="button" class="btn btn-default btn-lg alignBtn" aria-label="Left Align">
-          <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-        </button>
         <button onclick="location.href='MainMenu.html'" type="button" class="btn btn-default btn-lg alignBtn" aria-label="Left Align">
           <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
         </button>
@@ -98,9 +95,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right" role="tablist">
-          <div class="col-xs-3">
+          <div class="col-xs-4">
               <button  onClick="updateStateCard()" type="button"  class="btn btn-default btn-lg alignBtn"  aria-label="Left Align" data-toggle="modal" data-target="#stateMenu">
                 <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                <span>Estado</span>
               </button>
           </div>
           <div class="col-xs-3">
@@ -109,7 +107,7 @@
               <span id="shopping-badge"class="badge">0</span>
             </button>
           </div>
-          <div class="col-xs-5 " style="top:9px; left:10px">
+          <div class="col-xs-4 " style="top:9px; left:10px">
             <p class="text-right lead final-price" style="font-size:180%; padding-top:0px;">€ 0.0</p>
           </div>
         </ul>
@@ -193,7 +191,7 @@
             <tr>
               <th>Item</th>
               <th>Quantidade</th>
-              <th>Preço</th>
+              <th>Preço Und.</th>
               <th>Remover</th>
             </tr>
           </thead>
@@ -209,9 +207,6 @@
           </a>
           <a class="btn btn-warning btn-lg payButton" data-toggle="modal" data-target="#payNow">
             <span class="glyphicon glyphicon-euro"></span> Pagar
-          </a>
-          <a onclick="selectedOption()"class="btn btn-warning btn-lg divideButton" data-toggle="modal" data-target="#payInGroup">
-            <span class="glyphicon glyphicon-euro"></span> Dividir a conta
           </a>
         </p>
       </div>
@@ -256,7 +251,7 @@
             <tr>
               <th>Item</th>
               <th>Quantidade</th>
-              <th>Preço</th>
+              <th>Preço Und.</th>
               <th>Estado<th>
             </tr>
           </thead>
@@ -337,9 +332,6 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
-
 
 <div class="modal fade" id="creditCardPay">
   <div class="modal-dialog modal-lg" role="document">
@@ -443,44 +435,6 @@
 </div><!-- /.modal -->
 
 
-<div class="modal fade" id="payInGroup">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h2 class="modal-title text-center">Dividir conta</h2>
-      </div>
-      <div class="modal-body">
-        <p class="text-left">Dividir a conta por:</p>
-        <select onClick="selectedOption()"class="form-control input-lg" id="payDividor">
-          <option>2 Pessoas</option>
-          <option>3 Pessoas</option>
-          <option>4 Pessoas</option>
-          <option>5 Pessoas</option>
-          <option>6 Pessoas</option>
-          <option>7 Pessoas</option>
-          <option>8 Pessoas</option>
-          <option>9 Pessoas</option>
-          <option>10 Pessoas</option>
-        </select>
-        <p class="text-right totalDividerText">Total por pessoa: € 0.0</p>
-      </div>
-      <div class="modal-footer">
-        <p class="text-center">
-          <a class="btn btn-danger btn-lg" data-dismiss="modal" >
-            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-          </a>
-          <a class="btn btn-success btn-lg" href="#payNow" data-toggle="modal" data-target="#confirmModal" >
-            <span  class="glyphicon glyphicon-ok"></span> Confirmar
-          </a>
-        </p>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
@@ -502,7 +456,6 @@
     </div>
   </div>
 </div>
-
 
 <div class="modal fade" id ="processOrder">
   <div class="modal-dialog modal-lg" role="document">

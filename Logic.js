@@ -10,6 +10,7 @@ function updateCartList() {
       }
     });
   }
+  updateColorBadge();
 }
 
 /* Ads items to the cart */
@@ -33,6 +34,7 @@ function addCart(item) {
   }
   if(add == true || tableRef.rows.length == 0) addRow('cartTable', item, store.get(item.toUpperCase()).qnt, store.get(item.toUpperCase()).price);
   updateBadge();
+  updateColorBadge();
 }
 
 
@@ -141,6 +143,7 @@ function  updateCart() {
   document.getElementsByClassName("final-price")[0].innerHTML = "€ " + finalPrice;
   document.getElementsByClassName("final-price")[1].innerHTML = "€ " + finalPrice;
   updateCartList();
+
 }
 
 
@@ -158,7 +161,7 @@ function deleteRow(row) {
   document.getElementById('cartTable').deleteRow(d-1); // Deletes the item
   updateBadge();
   updateCart();
-
+  updateColorBadge();
   //updateMainMenuCart();
 }
 
@@ -295,6 +298,7 @@ function paymentDone() {
     updateBadge();
     updateCart();
     updateCartList();
+    updateColorBadge();
     $('#processOrder').modal('show');
 
   }
@@ -342,30 +346,6 @@ function closeModals(numb) {
   }
 }
 
-
-function ActionConfirmed() {
-  $('#payInGroup,#confirmModal, #keyPad').modal('hide');
-  var qnt = $('#payDividor').find(":selected").index();
-  price = store.get('FINALPRICE');
-  total = parseFloat(Math.round((price/(qnt+2)) * 100) / 100).toFixed(2);
-  for(var i = 0; i < qnt + 2; i++) {
-    var modalclone = $('#payNowGroup').clone(true);
-    modalclone.find('h2:first').html("Pagamento #" + (qnt + 2 - i));
-    modalclone.find('p:nth-child(2)').html("Total: € " + total);
-    document.getElementsByClassName("final-price")[2].innerHTML = " Total: € " + total; // Final price from cashPay option
-    document.getElementsByClassName("final-price")[3].innerHTML = " Total: € " + total; // Final price from credit card option
-    modalclone.modal('show');
-  }
-}
-
-function selectedOption() {
-  var qnt = $('#payDividor').find(":selected").index();
-  price = store.get('FINALPRICE');
-  total = parseFloat(Math.round((price/(qnt+2)) * 100) / 100).toFixed(2);
-  document.getElementsByClassName("totalDividerText")[0].innerHTML = "Total por pessoa: €" + total;
-
-}
-
 function addPin(val) {
   $('#PIN').val($('#PIN').val() + val);
 }
@@ -406,10 +386,22 @@ function addCartFromState(row) {
  });
 }
 
-function modalO(id) {
-  if (id == 1) {
-    $('#cashPay').modal('show');
+function updateColorBadge() {
+  var value = store.get('BADGE');
+  if(value == 0) {
+      $('#shopping-badge').css('background-color', 'grey');
   } else {
-    $('#crediCardPay').modal('show');
+    $('#shopping-badge').css('background-color', 'green');
   }
+}
+
+function ActionConfirmed(row) {
+    if(row.value.localeCompare("Delete") == 0) {
+      rw = row;
+      $('#confirmModal').modal('show');
+    }
+    if(row.value.localeCompare('Confirm') == 0) {
+      deleteRow(rw);
+      $('#confirmModal').modal('hide');
+    }
 }

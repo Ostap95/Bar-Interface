@@ -36,6 +36,8 @@
       getBadge();
       updateMainMenuCart();
       updateCartList();
+      updateCart();
+      updateStateCard();
     }
   //store.clear();
   window.onload = pageLoad;
@@ -45,7 +47,6 @@
   <!-- STYLE OF THE COMPONENTS -->
   <style>
     body { padding-top: 70px;
-
       font-family: 'Roboto';
      }
     p { font-size:25px; }
@@ -59,7 +60,6 @@
       margin-bottom: 0; /* Remove the default bottom margin of .jumbotron */
       background-color: white;
     }
-
   </style>
 
 
@@ -83,9 +83,11 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right" role="tablist">
-          <div class="col-xs-3">
-              <button  onClick="updateStateCard()" type="button"  class="btn btn-default btn-lg alignBtn"  aria-label="Left Align" data-toggle="modal" data-target="#stateMenu">
+          <div class="col-xs-4">
+              <button onClick="updateStateCard()" type="button"  class="btn btn-default btn-lg alignBtn"  aria-label="Left Align" data-toggle="modal" data-target="#stateMenu">
                 <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                <span>Estado</span>
+
               </button>
           </div>
           <div class="col-xs-3">
@@ -94,7 +96,7 @@
               <span id="shopping-badge"class="badge">0</span>
             </button>
           </div>
-          <div class="col-xs-5 " style="top:9px; left:10px">
+          <div class="col-xs-4" style="top:9px; left:10px">
             <p class="text-right lead final-price" style="font-size:180%; padding-top:0px;">€ 0.0</p>
           </div>
         </ul>
@@ -112,16 +114,19 @@
           <a href="FoodItemMenu.html" class="thumbnail">
             <img src="Category/food.jpg" alt="Food">
           </a>
+          <p class="text-center">Comida</p>
         </div>
         <div class="col-xs-4 ">
           <a href="DrinkItemMenu.html" class="thumbnail">
             <img src="Category/drinks.jpg" alt="Drinks">
           </a>
+          <p class="text-center">Bebida</p>
         </div>
         <div class="col-xs-4 ">
           <a href="CafeItemMenu.html" class="thumbnail">
             <img src="Category/cafe.jpg" alt="Cafe">
           </a>
+          <p class="text-center">Café</p>
         </div>
       </div>
     </div>
@@ -144,7 +149,7 @@
               <tr>
                 <th>Item</th>
                 <th>Quantidade</th>
-                <th>Preço</th>
+                <th>Preço Und.</th>
                 <th>Remover</th>
               </tr>
             </thead>
@@ -160,9 +165,6 @@
             </a>
             <a class="btn btn-warning btn-lg payButton" data-toggle="modal" data-target="#payNow">
               <span class="glyphicon glyphicon-euro"></span> Pagar
-            </a>
-            <a onclick="selectedOption()"class="btn btn-warning btn-lg divideButton" data-toggle="modal" data-target="#payInGroup">
-              <span class="glyphicon glyphicon-euro"></span> Dividir a conta
             </a>
           </p>
         </div>
@@ -186,7 +188,7 @@
     </button>
 
     <button value="AddToCart" onclick="addCartFromState(this)" id="add-button" type="button" class="btn btn-success btn-lg">
-      <span class="glyphicon glyphicon-shopping-cart"></span>
+      <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar
     </button>
   </div>
   <!-- Shoping cart table items END -->
@@ -207,7 +209,7 @@
               <tr>
                 <th>Item</th>
                 <th>Quantidade</th>
-                <th>Preço</th>
+                <th>Preço Und.</th>
                 <th>Estado<th>
               </tr>
             </thead>
@@ -260,7 +262,6 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-
   <div class="modal fade" id="cashPay">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -288,9 +289,6 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-
-
-
 
   <div class="modal fade" id="creditCardPay">
     <div class="modal-dialog modal-lg" role="document">
@@ -394,44 +392,6 @@
   </div><!-- /.modal -->
 
 
-  <div class="modal fade" id="payInGroup">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h2 class="modal-title text-center">Dividir conta</h2>
-        </div>
-        <div class="modal-body">
-          <p class="text-left">Dividir a conta por:</p>
-          <select onClick="selectedOption()"class="form-control input-lg" id="payDividor">
-            <option>2 Pessoas</option>
-            <option>3 Pessoas</option>
-            <option>4 Pessoas</option>
-            <option>5 Pessoas</option>
-            <option>6 Pessoas</option>
-            <option>7 Pessoas</option>
-            <option>8 Pessoas</option>
-            <option>9 Pessoas</option>
-            <option>10 Pessoas</option>
-          </select>
-          <p class="text-right totalDividerText">Total por pessoa: € 0.0</p>
-        </div>
-        <div class="modal-footer">
-          <p class="text-center">
-            <a class="btn btn-danger btn-lg" data-dismiss="modal" >
-              <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-            </a>
-            <a class="btn btn-success btn-lg" href="#payNow" data-toggle="modal" data-target="#confirmModal" >
-              <span  class="glyphicon glyphicon-ok"></span> Confirmar
-            </a>
-          </p>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-
   <!-- Modal -->
   <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
@@ -469,14 +429,15 @@
         </div>
         <div class="modal-footer">
           <p class="text-center">
-            <a onclick="closeModals()" class="btn btn-success btn-lg">
+            <a onclick="closeModals(1)" class="btn btn-success btn-lg">
               <span  class="glyphicon glyphicon-ok"></span> Continuar
+            </a>
+            <a onclick="closeModals(2)" class="btn btn-success btn-lg">
+              <span  class="glyphicon glyphicon-time"></span> Estado do Pedido
             </a>
           </p>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-
-
 </html>
