@@ -383,7 +383,7 @@ function addCartFromState(row) {
     $("#success-alert-state").fadeTo(1200, 500).slideUp(500, function(){
     $("#success-alert-state").hide();
     });
- });
+  });
 }
 
 function updateColorBadge() {
@@ -402,6 +402,17 @@ function ActionConfirmed(row) {
     }
     if(row.value.localeCompare('Confirm') == 0) {
       deleteRow(rw);
+      deleteItemAlert();
       $('#confirmModal').modal('hide');
     }
+}
+
+function deleteItemAlert() {
+  $(document).ready (function(){
+    $("#delete-alert-state").hide();
+    $("#delete-alert-state").alert();
+    $("#delete-alert-state").fadeTo(1200, 500).slideUp(500, function(){
+    $("#delete-alert-state").hide();
+    });
+  });
 }

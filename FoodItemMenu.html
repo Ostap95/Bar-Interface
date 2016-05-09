@@ -25,6 +25,7 @@
       $(document).ready (function(){
         $("#success-alert").hide();
         $("#success-alert-state").hide();
+        $("#delete-alert-state").hide();
         $("#Brunch, #Tosta, #Sandes").click(function showAlert() {
             $("#success-alert").alert();
             $("#success-alert").fadeTo(1200, 500).slideUp(500, function(){
@@ -33,6 +34,7 @@
         });
 
      });
+
      $(window).load(function(){
         if (store.get('STATEOPEN') == 1) {
             $('#stateMenu').modal('show');
@@ -187,6 +189,10 @@
         </table>
         <p class="text-right total-price">Total: € 0.00</p>
       </div>
+      <div class="alert alert-success" id="delete-alert-state">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          <p class="text-center"><strong>Item removido com sucesso</strong></p>
+      </div>
       <div class="modal-footer">
         <p class="text-center">
           <a class="btn btn-danger btn-lg" data-dismiss="modal">
@@ -252,12 +258,14 @@
             <button type="button" class="close" data-dismiss="alert">x</button>
             <p class="text-center"><strong>Adicionado ao carrinho com sucesso </strong></p>
         </div>
-        <a class="btn btn-danger btn-lg" data-dismiss="modal">
-          <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
-        </a>
-        <a class="btn btn-info btn-lg"  onClick="simulateProcessing()">
-          <span  class="glyphicon glyphicon-ok"></span> Simular Processamento
-        </a>
+        <p class="text-center">
+          <a class="btn btn-danger btn-lg" data-dismiss="modal">
+            <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
+          </a>
+          <a class="btn btn-info btn-lg"  onClick="simulateProcessing()">
+            <span  class="glyphicon glyphicon-ok"></span> Simular Processamento
+          </a>
+        </p>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -433,17 +441,17 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title text-center" id="myModalLabel">Eliminar Item</h4>
+        <h4 class="modal-title text-center" id="myModalLabel">Remover Item</h4>
       </div>
       <div class="modal-body">
-        <p class="text-center">Tem a certeza que pretende continuar?</p>
+        <p class="text-center">Tem a certeza que pretende remover este item?</p>
       </div>
       <div class="modal-footer">
-        <a class="btn btn-danger btn-lg" data-dismiss="modal">
+        <a class="btn btn-default btn-lg" data-dismiss="modal">
           <span  class="glyphicon glyphicon-remove" data-dismiss="modal"></span> Cancelar
         </a>
-        <button value="Confirm" onClick="ActionConfirmed(this)" id= "Confirm" class="btn btn-success btn-lg">
-          <span class="glyphicon glyphicon-ok"></span> Continuar
+        <button value="Confirm" onClick="ActionConfirmed(this)" id= "Confirm" class="btn btn-danger btn-lg">
+          <span class="glyphicon glyphicon-trash"></span> Remover
         </button>
       </div>
     </div>
