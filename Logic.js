@@ -212,8 +212,8 @@ function searchItem(item) {
 
 function cashPayInfo() {
     document.getElementsByClassName("final-price")[1].innerHTML = "Total: € " + finalPrice; // Final price from cash option
-    document.getElementsByClassName("final-price")[2].innerHTML = " Total: € " + finalPrice; // Final price from credit card option
-    document.getElementsByClassName("final-price")[3].innerHTML = " Total: € " + finalPrice; // Final price from credit card option
+    document.getElementsByClassName("final-price")[2].innerHTML = "Total: € " + finalPrice; // Final price from credit card option
+    document.getElementsByClassName("final-price")[3].innerHTML = "Total: € " + finalPrice; // Final price from credit card option
 }
 
 function addToProcessTable(tableID, itemName, itemQnt, itemPrice, state) {
@@ -300,7 +300,7 @@ function paymentDone() {
     updateCartList();
     updateColorBadge();
     $('#processOrder').modal('show');
-
+    $('#keyPad').modal('hide');
   }
 }
 
@@ -311,7 +311,7 @@ function updateStateCard() {
     var total = 0;
     for (key in list) {
       if (list[key].state.localeCompare("Em processamento") == 0)
-        addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Pedido a ser feito", "orange"]);
+        addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Pedido em preparação", "orange"]);
       else
         addToProcessTable('stateTable', list[key].name, list[key].qnt, list[key].price, ["Pedido entregue", "green"]);
       total += list[key].price * list[key].qnt;
@@ -350,7 +350,8 @@ function addPin(val) {
   $('#PIN').val($('#PIN').val() + val);
 }
 function goBackPIN() {
-
+  var str = $('#PIN').val();
+  $('#PIN').val(str.slice(0, str.length - 1));
 }
 
 function checkPIN() {
