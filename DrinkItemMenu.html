@@ -45,6 +45,7 @@
     function onStart() {
       updateBadge();
       updateCartList();
+      updateStateCard();
       updateCart();
     }
   window.onload = onStart;
@@ -76,7 +77,7 @@
       <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right" role="tablist">
           <div class="col-xs-4">
-              <button  onClick="updateStateCard()" type="button"  class="btn btn-default btn-lg alignBtn"  aria-label="Left Align" data-toggle="modal" data-target="#stateMenu">
+              <button onClick="updateStateCard()" type="button"  class="btn btn-default btn-lg alignBtn"  aria-label="Left Align" data-toggle="modal" data-target="#stateMenu">
                 <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                 <span>Estado</span>
               </button>
@@ -97,7 +98,7 @@
 
 
   <div>
-    <h3 class="text-center"> Bebida </h3>
+    <h2 class="text-center"> Bebida </h2>
   </div>
 
   <body>
@@ -246,11 +247,11 @@
         </table>
         <p class="text-right processing-price">Total: € 0.0</p>
       </div>
-      <div class="alert alert-success" id="success-alert-state">
-          <button type="button" class="close" data-dismiss="alert">x</button>
-          <p class="text-center"><strong>Adicionado ao carrinho com sucesso </strong></p>
-      </div>
       <div class="modal-footer">
+        <div class="alert alert-success" id="success-alert-state">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <p class="text-center"><strong>Adicionado ao carrinho com sucesso </strong></p>
+        </div>
         <p class="text-center">
           <a class="btn btn-danger btn-lg" data-dismiss="modal">
             <span  class="glyphicon glyphicon-arrow-left"></span> Retroceder
@@ -493,12 +494,21 @@
         <h2 class="modal-title text-center">Centro de Ajuda</h2>
       </div>
       <div class="modal-body">
-        <h4><strong>Menu Incial: </strong>Menu incial apresenta 3 diferentes categorias (Comida, Bebida e Café).</h4>
-        <h4><strong>Menu de Categria: </strong>Cada menu da categoria apresenta itens pertencetes à sua categoria.</h4>
-        <h4><strong>Carrinho de Compras: </strong>Carrinho de compras permite visualizar/editar os seus pedidos.</h4>
-        <h4><strong>Métodos de Pagamento: </strong>Existem dois métodos de pagamento: 'Em dinheiro' e com 'Cartão de crédito'.</h4>
-        <h4><strong>Estado do Pedido: </strong>Permite visualizar a informação relativa ao estado actual do pedido.
-        Existem dois estados em que o pedido pode estar: 'Pedido em preparação' e 'Pedido entregue'.</h4>
+        <h2 class="text-center">Menus</h2>
+        <h4><strong style="color:green">Menu Incial: </strong>Menu incial apresenta 3 diferentes categorias (Comida, Bebida e Café).</h4>
+        <h4><strong style="color:green">Menu de Categria: </strong>Cada menu da categoria apresenta itens pertencetes à sua categoria.</h4>
+        <h4><strong style="color:green">Carrinho de Compras: </strong>Carrinho de compras permite visualizar/editar os seus pedidos.</h4>
+        <h4><strong style="color:green">Estado do Pedido: </strong>Permite visualizar a informação relativa ao estado actual do pedido.
+        Existem dois estados em que o pedido pode estar: <strong>'Pedido em preparação'</strong> e <strong>'Pedido entregue'</strong>.</h4>
+        <br></br>
+        <h2 class="text-center">Pagamento</h2>
+        <h4><strong style="color:green">Métodos de Pagamento: </strong>Existem 2 métodos de pagamento: <strong>'Em dinheiro'</strong> e com <strong>'Cartão de crédito'</strong>.</h4>
+        <h4><strong style="color:green">Moedas aceites: </strong> 5cent, 10cent, 20cent, 50cent, 1 Euro, 2 Euros. </h4>
+        <h4><strong style="color:green">Cartão de crédito aceite: </strong> VISA e MasterCard. </h4>
+        <br></br>
+        <h2 class="text-center">Efectuar pedido</h2>
+        <h4> Para efectuar pedido, é necessário escolher os itens desejados e em seguida, entrar no carrinho de compras para proceder como pagamento.
+        Uma vez que o pagamento esteja concluído, o seu pedido começará a ser preparado. Para consultar o estado do seu pedido, basta carregar no botão 'Estado' na barra de navegação.</h4>
     </div>
       <div class="modal-footer">
         <p class="text-center">

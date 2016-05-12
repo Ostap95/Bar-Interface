@@ -3,7 +3,7 @@ function updateCartList() {
   // Loop over all stored values
   if(document.getElementById("cartTable").rows.length == 0) {
     store.forEach(function(key, val) {
-      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE' && key != 'STATEOPEN'){
+      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE' && key != 'STATEOPEN' && key != 'CARTOPEN'){
         if(store.get(key).qnt != 0) {
           addRow('cartTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
         }
@@ -126,6 +126,7 @@ function doOnceFood() {
     store.set('FINALPRICE', 0);
     store.set('STATETABLE', list);
     store.set('STATEOPEN', 0);
+    store.set('CARTOPEN', 0);
 }
 
 /* Updates badge information in Item Information menus */
@@ -137,13 +138,13 @@ function updateBadge() {
 
 /* Updates Cart in Item Information menus */
 function  updateCart() {
+  updateCartList();
   checkBadge();
   finalPrice = parseFloat(Math.round(store.get('FINALPRICE') * 100) / 100).toFixed(2);
   document.getElementsByClassName("total-price")[0].innerHTML = "Total: € " + finalPrice;
   document.getElementsByClassName("final-price")[0].innerHTML = "€ " + finalPrice;
   document.getElementsByClassName("final-price")[1].innerHTML = "€ " + finalPrice;
   updateCartList();
-
 }
 
 
@@ -280,7 +281,7 @@ function paymentDone() {
   }
   if(document.getElementById("cartTable").rows.length != 0) {
     store.forEach(function(key, val) {
-      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE' && key != 'STATEOPEN'){
+      if(key != 'once' && key != 'BADGE' && key != 'FINALPRICE' && key != 'STATETABLE' && key != 'STATEOPEN' && key != 'CARTOPEN'){
         if(store.get(key).qnt != 0) {
           //addToProcessTable('stateTable', store.get(key).name, store.get(key).qnt, store.get(key).price);
           list.push(store.get(key))

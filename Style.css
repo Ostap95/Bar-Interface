@@ -22,8 +22,9 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
 }
-h3 {
+h2 {
     color: #777;
+    padding-bottom: 25px;
 }
 
 p { font-size:25px; }
